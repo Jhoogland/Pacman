@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -16,35 +14,70 @@ import java.awt.Graphics;
 public class Pacman{
     private int x = 10;
     private int y =  10;    
-    private final int width = 50;
-    private final int height = 50;
+    private final int width = 100;
+    private final int height = 100;
     private final int SPEED = 5;
-    private enum direction{SOUTH,EAST,NORTH,WEST};
+    private boolean running = false;
+    public enum Direction{SOUTH,EAST,NORTH,WEST};
+    private int deltaTime;
+    public void update(int deltaTime) {
+        this.deltaTime = deltaTime;
+       if(running)
+       {
+          
+       }
+     }
+    private void goSouth(int deltaTime)
+    {
+      y = y+deltaTime;   
+    }
+    private void goNorth(int deltaTime)
+    {
+        y = y- deltaTime;
+    }
+    private void goWest(int deltaTime)
+    {
+        x =x -deltaTime;
+    }
+    private void goEast(int deltaTime)
+    { 
+        x = x + deltaTime;
+    }
+    public void stop()
+    {
+        this.running = false;
+    }
+            
+   
     
     public void draw(Graphics graphics)
     {   
         graphics.setColor(Color.YELLOW);
-        graphics.fillOval(x, y, width, height);      
-       // graphics.fillOval((width/2)x,y,20,20);
+        graphics.fillOval(x, y, width, height);    
+        graphics.setColor(Color.BLACK);
+        graphics.fillOval((width/2)+x,y+10,20,20);
+        graphics.setColor(Color.BLACK);
+        graphics.fillArc(x, y, width, height, width, height);
     }
-    
-    private void move(enum direction)
-    {
-        switch(direction.EAST)
+ 
+    void bewegen(Direction direction)
+    {   running = true;
+        
+        switch(direction)
         {
          
             case SOUTH:
-                this.y = this.y - this.SPEED;
+                this.goSouth(deltaTime);
                 break;
             case EAST:
                 
-                this.x = this.x + this.SPEED;
+               this.goEast(deltaTime);
                 break;
             case NORTH:
-                this.y = this.y + this.SPEED;
+                this.goNorth(deltaTime);
                 break;
             case WEST:
-                this.x = this.x - this.SPEED;
+                this.goWest(deltaTime);
                 break;
              
                 
@@ -55,61 +88,3 @@ public class Pacman{
     
    
 }
-=======
-
-import java.awt.Color;
-import java.awt.Graphics;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author denzyl
- */
-public class Pacman extends SpelElement{
-    private int x = 10;
-    private int y =  10;    
-    private final int width = 50;
-    private final int height = 50;
-    private final int SPEED = 5;
-    private enum direction{SOUTH,EAST,NORTH,WEST};
-    
-    public void draw(Graphics graphics)
-    {   
-        graphics.setColor(Color.YELLOW);
-        graphics.fillOval(x, y, width, height);      
-       // graphics.fillOval((width/2)x,y,20,20);
-    }
-   
-    private void bewegen(enum direction)
-    {
-        switch(direction.EAST)
-        {
-         
-            case SOUTH:
-                this.y = this.y - this.SPEED;
-                break;
-            case EAST:
-                
-                this.x = this.x + this.SPEED;
-                break;
-            case NORTH:
-                this.y = this.y + this.SPEED;
-                break;
-            case WEST:
-                this.x = this.x - this.SPEED;
-                break;
-             
-                
-        }
-           this.repaint();     
-        
-    }
-    
-   
-}
->>>>>>> 88e6dd04d208bf90056236e194da7458dc1454ef

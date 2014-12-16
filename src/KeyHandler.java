@@ -15,39 +15,40 @@ public class KeyHandler implements KeyListener {
 
     Pacman pacman;
 
-    public setPacman(Pacman pacman) {
+    public void setPacman(Pacman pacman) {
         this.pacman = pacman;
 
     }
 
     @Override
     public void keyTyped(KeyEvent ke) {
-        System.out.println("Hello world");
+        
     }
 
     @Override
     public void keyPressed(KeyEvent ke) {
+        
 
         switch (ke.getKeyCode()) {
 
-            case KeyEvent.VK_DOWN:
-                this.pacman.bewegen(direction.SOUTH);
+            case 40:
+                this.pacman.bewegen(Pacman.Direction.SOUTH);
                 break;
-            case KeyEvent.VK_UP:
-                this.pacman.bewegen(direction.NORTH);
+            case 38:
+                this.pacman.bewegen(Pacman.Direction.NORTH);
                 break;
-            case KeyEvent.VK_RIGHT:
-                this.pacman.bewegen(direction.EAST);
+            case 39:
+                this.pacman.bewegen(Pacman.Direction.EAST);
                 break;
-            case KeyEvent.VK_LEFT:
-                this.pacman.bewegen(direction.WEST);
+            case 37:
+                this.pacman.bewegen(Pacman.Direction.WEST);
                 break;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        System.out.println("Hello world");
+        
     }
 
 }

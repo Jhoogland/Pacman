@@ -1,126 +1,128 @@
-<<<<<<< HEAD
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author denzyl
- */
-public class Game extends JFrame{
+public class Game implements Runnable {
 
     private JFrame frame = new JFrame();
     private final String title = "PACMAN";
     public Speelveld speelveld;
-
-    public enum gamestate {
-
-        RUNNING, STOPPED, PAUSED
-    }
-    Panel panel;
+    public Pacman pacman;
+    public Panel panel;
     public final int WIDTH = 800;
     public final int HEIGHT = 800;
+    Canvas canvas;
+    BufferStrategy bufferStrategy;
 
-    public Game() {
-        speelveld = new Speelveld();
-        panel = new Panel();
-        panel.setBackground(Color.BLACK);
-        panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        frame = new JFrame();
-        frame.setTitle(title);
-        frame.setContentPane(panel);
-        frame.setVisible(true);
-        frame.pack();
-    }
+    long desiredFPS = 60;
+    long desiredDeltaLoop = (1000 * 1000 * 1000) / desiredFPS;
 
-    public static void main(String[] args) {
-        Game game = new Game();
-    }
+    public void run() {
 
-    class Panel extends JPanel {
+        long beginLoopTime;
+        long endLoopTime;
+        long currentUpdateTime = System.nanoTime();
+        long lastUpdateTime;
+        long deltaLoop;
 
-        @Override
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-         
-            speelveld.draw(g);
-          //  panel.repaint();
+        while (Status.RUNNING.equals(Status.RUNNING)) {
+            beginLoopTime = System.nanoTime();
+
+            render();
+
+            lastUpdateTime = currentUpdateTime;
+            currentUpdateTime = System.nanoTime();
+            update((int) ((currentUpdateTime - lastUpdateTime) / (1000 * 1000)));
+
+            endLoopTime = System.nanoTime();
+            deltaLoop = endLoopTime - beginLoopTime;
+
+            if (deltaLoop > desiredDeltaLoop) {
+                //Do nothing. We are already late.
+            } else {
+                try {
+                    Thread.sleep((desiredDeltaLoop - deltaLoop) / (1000 * 1000));
+                } catch (InterruptedException e) {
+                    //Do nothing
+                }
+            }
         }
     }
-}
-=======
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+    private void render() {
+        Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
+        g.clearRect(0, 0, WIDTH, HEIGHT);
+        render(g);
+        g.dispose();
+        bufferStrategy.show();
+    }
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author denzyl
- */
-public class Game extends JFrame{
+    //TESTING
+    private double x = 0;
 
-    private JFrame frame = new JFrame();
-    private final String title = "PACMAN";
-    public Speelveld speelveld;
-    public SpelElement pacman;
-    public enum gamestate {
+    /**
+     * Rewrite this method for your game
+     */
+    protected void update(int deltaTime) {
+        pacman.update(deltaTime);
+    }
+
+    /**
+     * Rewrite this method for your game
+     */
+    protected void render(Graphics2D g) {
+        pacman.draw(g);
+    }
+
+    public enum Status {
 
         RUNNING, STOPPED, PAUSED
     }
-    Panel panel;
-    public final int WIDTH = 800;
-    public final int HEIGHT = 800;
 
     public Game() {
+        canvas = new Canvas();
+        canvas.setBounds(0, 0, WIDTH, HEIGHT);
+        canvas.setIgnoreRepaint(true);
+       
         speelveld = new Speelveld();
         pacman = new Pacman();
         panel = new Panel();
         panel.setBackground(Color.BLACK);
         panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        panel.add(canvas);
+
+         KeyHandler kh = new KeyHandler();
+        kh.setPacman(pacman);
+        canvas.addKeyListener(kh);
+        
+        
         frame = new JFrame();
         frame.setTitle(title);
         frame.setContentPane(panel);
         frame.setVisible(true);
+        frame.setResizable(false);
         frame.pack();
+
+        canvas.createBufferStrategy(2);
+        bufferStrategy = canvas.getBufferStrategy();
+
+        canvas.requestFocus();
     }
 
     public static void main(String[] args) {
         Game game = new Game();
-       
+        new Thread(game).start();
+
     }
 
     class Panel extends JPanel {
 
-        @Override
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.fillRect(30, 30, 20, 30);
-            speelveld.draw(g);
-          //  panel.repaint();
-        }
-        public Panel(){
-            this.setFocusable(true);
-            KeyHandler kh = new KeyHandler();
-            kh.setPacman(pacman);
-            this.addKeyListener(kh);
-            System.out.println("ja");
+     
     }
 }
-}
->>>>>>> 88e6dd04d208bf90056236e194da7458dc1454ef
