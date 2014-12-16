@@ -12,7 +12,7 @@ import java.awt.Graphics;
  *
  * @author denzyl
  */
-public class Pacman{
+public class Pacman extends SpelElement{
     private int x = 10;
     private int y =  10;    
     private final int width = 50;
@@ -27,7 +27,7 @@ public class Pacman{
        // graphics.fillOval((width/2)x,y,20,20);
     }
    
-    private void move()
+    private void bewegen(enum direction)
     {
         switch(direction.EAST)
         {
@@ -48,7 +48,7 @@ public class Pacman{
              
                 
         }
-                
+           this.repaint();     
         
     }
     

@@ -19,7 +19,7 @@ public class Game extends JFrame{
     private JFrame frame = new JFrame();
     private final String title = "PACMAN";
     public Speelveld speelveld;
-
+    public SpelElement pacman;
     public enum gamestate {
 
         RUNNING, STOPPED, PAUSED
@@ -30,6 +30,7 @@ public class Game extends JFrame{
 
     public Game() {
         speelveld = new Speelveld();
+        pacman = new Pacman();
         panel = new Panel();
         panel.setBackground(Color.BLACK);
         panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -42,6 +43,7 @@ public class Game extends JFrame{
 
     public static void main(String[] args) {
         Game game = new Game();
+       
     }
 
     class Panel extends JPanel {
@@ -53,5 +55,12 @@ public class Game extends JFrame{
             speelveld.draw(g);
           //  panel.repaint();
         }
+        public Panel(){
+            this.setFocusable(true);
+            KeyHandler kh = new KeyHandler();
+            kh.setPacman(pacman);
+            this.addKeyListener(kh);
+            System.out.println("ja");
     }
+}
 }
