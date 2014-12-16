@@ -26,8 +26,8 @@ public class Pacman{
         graphics.fillOval(x, y, width, height);      
        // graphics.fillOval((width/2)x,y,20,20);
     }
-   
-    private void move()
+    
+    private void move(enum direction)
     {
         switch(direction.EAST)
         {

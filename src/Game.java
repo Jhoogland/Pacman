@@ -49,7 +49,7 @@ public class Game extends JFrame{
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.fillRect(30, 30, 20, 30);
+         
             speelveld.draw(g);
           //  panel.repaint();
         }
