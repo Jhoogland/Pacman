@@ -13,10 +13,10 @@ import java.awt.event.KeyListener;
  */
 public class KeyHandler implements KeyListener {
 
-    Pacman pacman;
+   Speelveld speelveld;
 
-    public void setPacman(Pacman pacman) {
-        this.pacman = pacman;
+    public void setSpeelveld(Speelveld speelveld) {
+        this.speelveld = speelveld;
 
     }
 
@@ -27,21 +27,19 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        
-
         switch (ke.getKeyCode()) {
 
             case 40:
-                this.pacman.bewegen(Pacman.Direction.SOUTH);
+             this.speelveld.gaSouth();
                 break;
             case 38:
-                this.pacman.bewegen(Pacman.Direction.NORTH);
+               this.speelveld.gaNorth();
                 break;
             case 39:
-                this.pacman.bewegen(Pacman.Direction.EAST);
+                         this.speelveld.gaEast();
                 break;
             case 37:
-                this.pacman.bewegen(Pacman.Direction.WEST);
+      this.speelveld.gaWest();
                 break;
         }
     }

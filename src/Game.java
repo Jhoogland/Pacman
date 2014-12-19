@@ -2,7 +2,6 @@
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
@@ -77,6 +76,8 @@ public class Game implements Runnable {
      * Rewrite this method for your game
      */
     protected void render(Graphics2D g) {
+     
+        speelveld.draw(g);
         pacman.draw(g);
     }
 
@@ -86,19 +87,22 @@ public class Game implements Runnable {
     }
 
     public Game() {
+        
         canvas = new Canvas();
         canvas.setBounds(0, 0, WIDTH, HEIGHT);
         canvas.setIgnoreRepaint(true);
-       
+      
         speelveld = new Speelveld();
         pacman = new Pacman();
+        speelveld.setPacman(pacman);
+        
         panel = new Panel();
         panel.setBackground(Color.BLACK);
         panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         panel.add(canvas);
 
-         KeyHandler kh = new KeyHandler();
-        kh.setPacman(pacman);
+        KeyHandler kh = new KeyHandler();
+        kh.setSpeelveld(speelveld);
         canvas.addKeyListener(kh);
         
         
@@ -123,6 +127,9 @@ public class Game implements Runnable {
 
     class Panel extends JPanel {
 
-     
+     public Panel()
+     {
+         
+     }
     }
 }
