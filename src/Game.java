@@ -118,11 +118,15 @@ public class Game implements Runnable {
 
         canvas.requestFocus();
     }
+    public void spelStarten()
+    {
+        
+    }
 
     public static void main(String[] args) {
-        Game game = new Game();
+      
+  Game game = new Game();
         new Thread(game).start();
-
     }
 
     class Panel extends JPanel {

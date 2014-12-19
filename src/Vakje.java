@@ -36,8 +36,16 @@ class Vakje {
             muur.setWidth(this.WIDTH);
             muur.setHeight(this.HEIGHT);
             muur.draw(g);
-
+        }else if(this.bevat instanceof Spookje)
+        {
+            Spookje spookje = (Spookje)this.bevat;
+            spookje.setX(this.getX());
+            spookje.setY(this.getY());
+            spookje.setWidth(this.getWidth());
+            spookje.setHeight(this.getHeight());
+            spookje.draw(g);
         }
+        
     }
 
     void setY(int y) {

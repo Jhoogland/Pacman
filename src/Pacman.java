@@ -17,7 +17,7 @@ public class Pacman {
     private int y = 10;
     private final int width = 100;
     private final int height = 100;
-    private final int SPEED = 5;
+    private final int SPEED = 1;
     private boolean running = true;
 
     public enum Direction {
@@ -32,25 +32,17 @@ public class Pacman {
         this.deltaTime = deltaTime;
         if (running) {
             try {
-                if (this.getX() < this.goToVakje.getX() && this.getY() == this.goToVakje.getY() ) {
-
+                if (this.getX() < this.goToVakje.getX() && this.getY() == this.goToVakje.getY()) {
                     this.goEast(deltaTime);
-                } else 
-                    if (this.getY() > this.goToVakje.getY() && this.getX() == this.goToVakje.getX())
-                {
+                } else if (this.getY() > this.goToVakje.getY() && this.getX() == this.goToVakje.getX()) {
                     this.goNorth(deltaTime);
-
-                } 
-                    else if (this.getX() > this.goToVakje.getX()&& this.getY() == this.goToVakje.getY()) {
+                } else if (this.getX() > this.goToVakje.getX() && this.getY() == this.goToVakje.getY()) {
                     this.goWest(deltaTime);
-                } //else if (this.getY() < this.goToVakje.getY() && (this.getX() == this.goToVakje.getX()|| (this.getX() < this.getX() + this.goToVakje.getWidth() && this.getX() > this.goToVakje.getX()) )) {
-                else 
-                    if(this.getY() < this.goToVakje.getY() && this.getX() == this.goToVakje.getX()){   
-                this.goSouth(deltaTime);
-                }else{
-                           this.running =false;
-                    }
-             
+                } else if (this.getY() < this.goToVakje.getY() && this.getX() == this.goToVakje.getX()) {
+                    this.goSouth(deltaTime);
+                } else {
+                    this.running = false;
+                }
 
             } catch (NullPointerException e) {
             }
@@ -60,22 +52,20 @@ public class Pacman {
     }
 
     private void goSouth(int deltaTime) {
-
-        y = y + deltaTime;
-
+        y = y + this.SPEED;
     }
 
     private void goNorth(int deltaTime) {
-        y = y - deltaTime;
+        y = y - this.SPEED;
     }
 
     private void goWest(int deltaTime) {
-        x = x - deltaTime;
+        x = x -this.SPEED;
     }
 
     private void goEast(int deltaTime) {
 
-        x = x + deltaTime;
+        x = x + this.SPEED;
 
     }
 
@@ -106,7 +96,7 @@ public class Pacman {
 
     public int getY() {
 
-        return this.y;                        
+        return this.y;
     }
 
     public void pacmanStartVakje(Vakje vakje) {
