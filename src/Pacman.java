@@ -17,7 +17,7 @@ public class Pacman {
     private int y = 10;
     private final int width = 100;
     private final int height = 100;
-    private final int SPEED = 1;
+    private final int SPEED = 10;
     private boolean running = true;
 
     public enum Direction {
@@ -46,7 +46,7 @@ public class Pacman {
 
             } catch (NullPointerException e) {
             }
-
+                    
         }
 
     }

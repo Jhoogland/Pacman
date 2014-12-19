@@ -46,12 +46,13 @@ public class Game implements Runnable {
             deltaLoop = endLoopTime - beginLoopTime;
 
             if (deltaLoop > desiredDeltaLoop) {
-                //Do nothing. We are already late.
+                
+                //Te laat
             } else {
                 try {
                     Thread.sleep((desiredDeltaLoop - deltaLoop) / (1000 * 1000));
                 } catch (InterruptedException e) {
-                    //Do nothing
+                    //Niks doen
                 }
             }
         }
