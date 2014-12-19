@@ -26,10 +26,7 @@ class Vakje {
 
     public void draw(Graphics g) {
 
-        if (this.bevat == null) {
-            g.setColor(Color.RED);
-            g.drawRect(x, y, WIDTH, HEIGHT);
-        } else if (this.bevat instanceof Muur) {
+     if (this.bevat instanceof Muur) {
             Muur muur = (Muur) this.bevat;
             muur.setX(this.x);
             muur.setY(this.y);

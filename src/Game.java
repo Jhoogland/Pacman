@@ -1,4 +1,5 @@
 
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+
 
 public class Game implements Runnable {
 
@@ -76,7 +79,7 @@ public class Game implements Runnable {
      * Rewrite this method for your game
      */
     protected void render(Graphics2D g) {
-     
+
         speelveld.draw(g);
         pacman.draw(g);
     }
@@ -86,16 +89,22 @@ public class Game implements Runnable {
         RUNNING, STOPPED, PAUSED
     }
 
+    public void spelStarten() {
+        new Thread(this).start();
+        panel.setFocusable(true);
+
+    }
+
     public Game() {
-        
+
         canvas = new Canvas();
         canvas.setBounds(0, 0, WIDTH, HEIGHT);
         canvas.setIgnoreRepaint(true);
-      
+
         speelveld = new Speelveld();
         pacman = new Pacman();
         speelveld.setPacman(pacman);
-        
+
         panel = new Panel();
         panel.setBackground(Color.BLACK);
         panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -104,8 +113,7 @@ public class Game implements Runnable {
         KeyHandler kh = new KeyHandler();
         kh.setSpeelveld(speelveld);
         canvas.addKeyListener(kh);
-        
-        
+
         frame = new JFrame();
         frame.setTitle(title);
         frame.setContentPane(panel);
@@ -118,22 +126,18 @@ public class Game implements Runnable {
 
         canvas.requestFocus();
     }
-    public void spelStarten()
-    {
-        
-    }
 
     public static void main(String[] args) {
-      
-  Game game = new Game();
-        new Thread(game).start();
+
+        Game game = new Game();
+    game.spelStarten();
+
     }
 
     class Panel extends JPanel {
 
-     public Panel()
-     {
-         
-     }
+        public Panel() {
+
+        }
     }
 }

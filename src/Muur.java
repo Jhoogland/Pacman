@@ -33,7 +33,7 @@ public class Muur extends SpelElement{
         this.height =height;
     }
     public void draw(Graphics g) {
-        g.setColor(Color.RED);
+        g.setColor(Color.blue);
         g.fillRect(x,y,width,height);
     }
 }
