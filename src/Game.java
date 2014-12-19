@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,19 +20,25 @@ public class Game implements Runnable {
     public final int HEIGHT = 800;
     Canvas canvas;
     BufferStrategy bufferStrategy;
-
+    Menu menu;
+    Boolean isAanHetLopen=true;
     long desiredFPS = 60;
     long desiredDeltaLoop = (1000 * 1000 * 1000) / desiredFPS;
-
+    
+    public void spelStarten(){
+    new Thread(this).start();
+    panel.setFocusable(true);
+        
+    }
     public void run() {
-
+        System.out.println("hel");
         long beginLoopTime;
         long endLoopTime;
         long currentUpdateTime = System.nanoTime();
         long lastUpdateTime;
         long deltaLoop;
 
-        while (Status.RUNNING.equals(Status.RUNNING)) {
+        while (isAanHetLopen) {
             beginLoopTime = System.nanoTime();
 
             render();
@@ -80,15 +87,16 @@ public class Game implements Runnable {
         pacman.draw(g);
     }
 
-    public enum Status {
-
-        RUNNING, STOPPED, PAUSED
-    }
+    
+            
 
     public Game() {
+      GridLayout layout = new GridLayout();
+        menu = new Menu(this);
         canvas = new Canvas();
         canvas.setBounds(0, 0, WIDTH, HEIGHT);
         canvas.setIgnoreRepaint(true);
+        
        
         speelveld = new Speelveld();
         pacman = new Pacman();
@@ -104,9 +112,18 @@ public class Game implements Runnable {
         
         frame = new JFrame();
         frame.setTitle(title);
-        frame.setContentPane(panel);
+        layout.setColumns(1);
+        layout.setRows(2);
+        frame.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+        frame.setLayout(layout);
+        frame.add(menu);
+        frame.add(panel);
+       // frame.setContentPane(menu);
+       // frame.setContentPane(panel);
+       
         frame.setVisible(true);
-        frame.setResizable(false);
+        frame.setResizable(true);
+        
         frame.pack();
 
         canvas.createBufferStrategy(2);
@@ -117,7 +134,7 @@ public class Game implements Runnable {
 
     public static void main(String[] args) {
         Game game = new Game();
-        new Thread(game).start();
+      
 
     }
 
