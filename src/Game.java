@@ -35,16 +35,12 @@ public class Game implements Runnable {
 
         while (Status.RUNNING.equals(Status.RUNNING)) {
             beginLoopTime = System.nanoTime();
-
             render();
-
             lastUpdateTime = currentUpdateTime;
             currentUpdateTime = System.nanoTime();
             update((int) ((currentUpdateTime - lastUpdateTime) / (1000 * 1000)));
-
             endLoopTime = System.nanoTime();
             deltaLoop = endLoopTime - beginLoopTime;
-
             if (deltaLoop > desiredDeltaLoop) {
                 
                 //Te laat

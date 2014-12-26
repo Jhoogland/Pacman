@@ -46,9 +46,8 @@ class Speelveld {
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Muur()));
-         vakken.add(pacmanStartVakje);
-        vakken.add(new Vakje(null));
-       
+        vakken.add(pacmanStartVakje);
+        vakken.add(new Vakje(null));       
         vakken.add(new Vakje(new Spookje()));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));

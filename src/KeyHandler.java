@@ -30,16 +30,16 @@ public class KeyHandler implements KeyListener {
         switch (ke.getKeyCode()) {
 
             case 40:
-             this.speelveld.gaSouth();
+             this.speelveld.gaSouth();//Pacman. beweeg(South);
                 break;
             case 38:
-               this.speelveld.gaNorth();
+               this.speelveld.gaNorth();//
                 break;
             case 39:
-                         this.speelveld.gaEast();
+                this.speelveld.gaEast();
                 break;
             case 37:
-      this.speelveld.gaWest();
+                this.speelveld.gaWest();
                 break;
         }
     }
