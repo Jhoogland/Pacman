@@ -20,19 +20,19 @@ public class Bolletje extends SpelElement {
  
     public void setWidth(int width)
     {
-        this.width = 50;
+        this.width = 25;
     }
     public void setHeight(int height)
     {
-        this.height = 50;
+        this.height = 25;
     }
     public void setX(int x)
     {
-        this.x = x;
+        this.x = x+35;
     }
     public void setY(int y)
     {
-        this.y = y;
+        this.y = y+35;
     }
     public void draw(Graphics g)
     {
