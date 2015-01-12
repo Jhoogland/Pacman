@@ -1,6 +1,8 @@
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,9 +17,9 @@ public class Pacman {
 
     private int x = 10;
     private int y = 10;
-    private final int width = 100;
-    private final int height = 100;
-    private final int SPEED = 10;
+    private final int width = 50;
+    private final int height = 50;
+    private final int SPEED = 5;
     private boolean running = true;
 
     public enum Direction {
@@ -33,13 +35,13 @@ public class Pacman {
         if (running) {
             try {
                 if (this.getX() < this.goToVakje.getX() && this.getY() == this.goToVakje.getY()) {
-                    this.goEast(deltaTime);
+                    this.goEast();
                 } else if (this.getY() > this.goToVakje.getY() && this.getX() == this.goToVakje.getX()) {
-                    this.goNorth(deltaTime);
+                    this.goNorth();
                 } else if (this.getX() > this.goToVakje.getX() && this.getY() == this.goToVakje.getY()) {
-                    this.goWest(deltaTime);
+                    this.goWest();
                 } else if (this.getY() < this.goToVakje.getY() && this.getX() == this.goToVakje.getX()) {
-                    this.goSouth(deltaTime);
+                    this.goSouth();
                 } else {
                     this.running = false;
                 }
@@ -51,19 +53,19 @@ public class Pacman {
 
     }
 
-    private void goSouth(int deltaTime) {
+    private void goSouth() {
         y = y + this.SPEED;
     }
 
-    private void goNorth(int deltaTime) {
+    private void goNorth() {
         y = y - this.SPEED;
     }
 
-    private void goWest(int deltaTime) {
+    private void goWest() {
         x = x -this.SPEED;
     }
 
-    private void goEast(int deltaTime) {
+    private void goEast() {
 
         x = x + this.SPEED;
 
@@ -72,7 +74,11 @@ public class Pacman {
     public void stop() {
         this.running = false;
     }
-
+       
+    public Vakje getVakje()
+    {
+        return this.goToVakje;
+    }
     public void draw(Graphics graphics) {
         graphics.setColor(Color.YELLOW);
         graphics.fillOval(x, y, width, height);
@@ -100,17 +106,90 @@ public class Pacman {
     }
 
     public void pacmanStartVakje(Vakje vakje) {
+        this.goToVakje = vakje;
         this.setY(vakje.getY());
         this.setX(vakje.getX());
 
     }
+   private void eetBolletje(Vakje vakje)
+   { 
+//       if(vakje.getBolletje().getY() < this.getY() + this.getY() + this.getWidth() && vakje.getX() == this.getX())
+//       {
+       vakje.getBolletje().verwijderen();
+       vakje.setBevat(null);
+//       }
+   }
 
-    public void gaNaarVakje(Vakje vakje) {
-        System.out.println(vakje.getY());
-        System.out.println(this.getY());
+   private void gaNaarVakje(Vakje vakje)
+    {     System.out.println("============");
+        if(vakje.isBolletje())
+        {
+            System.out.println(vakje.isBolletje());
+           
+            this.eetBolletje(vakje);
+       
+           
+        }
+        
         this.running = true;
         this.goToVakje = vakje;
-
     }
+    public void path(ArrayList<Vakje> path,Direction direction)
+    {
+        switch(direction)
+        {
+            case WEST:
+                Collections.reverse(path);
+                for(Vakje vak : path)
+                {
+                   // System.out.println(vak.getX() + " "+vak.isMuur());
+                   if(!vak.isMuur())
+                   {
+                       this.gaNaarVakje(vak);
+                   }else{
+                       break;
+                   }
+                }
+               break;
+            case EAST:
+              
+                for(Vakje vak : path)
+                {
+                    //System.out.println(vak.getX() + " "+vak.isMuur());
+                   if(!vak.isMuur())
+                   {
+                       this.gaNaarVakje(vak);
+                   }else{
+                       break;
+                   }
+                }
+            break;
+            case NORTH:
+                Collections.reverse(path);
+                for(Vakje vak : path)
+                {
+                   if(!vak.isMuur())
+                   {
+                       this.gaNaarVakje(vak);
+                   }else{
+                       break;
+                   }
+                }
+                break;
+            case SOUTH:
+                 for(Vakje vak : path)
+                {
+                   if(!vak.isMuur())
+                   {
+                       this.gaNaarVakje(vak);
+                   }else{
+                       break;
+                   }
+                }
+              break;
+        }
+    }
+     
+    
 
 }

@@ -7,7 +7,7 @@ import java.util.List;
 class Speelveld {
 
     private List vakken = new ArrayList<Vakje>();
-    
+
     private final int rowMax = 9;
     Pacman pacman;
     Vakje pacmanStartVakje;
@@ -18,7 +18,6 @@ class Speelveld {
         pacman.pacmanStartVakje(pacmanStartVakje);
 
     }
-
     public Speelveld() {
         pacmanStartVakje = new Vakje(null);
         vakken.add(new Vakje(new Muur()));
@@ -30,19 +29,18 @@ class Speelveld {
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Muur()));
-        
-        
+
         vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Bolletje()));
         vakken.add(new Vakje(null));
+        vakken.add(new Vakje(new Bolletje()));
+  
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Spookje()));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
-        
-        
+
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
@@ -52,8 +50,7 @@ class Speelveld {
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Spookje()));
         vakken.add(new Vakje(new Muur()));
-        
-        
+
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
@@ -63,19 +60,17 @@ class Speelveld {
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
-        
-        
+
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
+        vakken.add(new Vakje(null));
+        vakken.add(new Vakje(new Muur()));
+        vakken.add(new Vakje(new Spookje()));
+        vakken.add(new Vakje(null));
         vakken.add(pacmanStartVakje);
-        vakken.add(new Vakje(new Muur()));      
-        vakken.add(new Vakje(new Spookje()));
         vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        
-        
+
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
@@ -85,8 +80,7 @@ class Speelveld {
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
-        
-        
+
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(null));
@@ -96,8 +90,7 @@ class Speelveld {
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
-        
-        
+
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
@@ -107,9 +100,7 @@ class Speelveld {
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
-        
-        
-        
+
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Muur()));
@@ -119,7 +110,7 @@ class Speelveld {
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Muur()));
-        
+
         this.vakjesVerdelen();
     }
 
@@ -157,92 +148,94 @@ class Speelveld {
     }
 
     public void gaEast() {
-        Vakje tempVakje = new Vakje(null);
+        Vakje tempVakje = this.pacman.getVakje();
+        ArrayList<Vakje> pacmanPath = new ArrayList<Vakje>();
         for (Iterator it = vakken.iterator(); it.hasNext();) {
 
             Vakje vakje = (Vakje) it.next();
 
-            if (this.pacman.getY() == vakje.getY() && !vakje.isMuur()) {
-                tempVakje = vakje;
-               
-               
-                        
-                if (tempVakje.getX() > vakje.getX()) {
-                        
-                    tempVakje = vakje;
+            if (this.pacman.getY() == vakje.getY()) {
+            
+
+                if (tempVakje.getX() <  vakje.getX()) {
+                    pacmanPath.add(vakje);
                 }
             }
         }
-        
-     
-            this.pacman.gaNaarVakje(tempVakje);
-        
-        }
-     public void gaWest() {
-        Vakje tempVakje = this.pacmanStartVakje;
+        tempVakje.setPacman(pacman);
+        this.pacman.path(pacmanPath,Pacman.Direction.EAST);
+
+    }
+
+    public void gaWest() {
+        Vakje tempVakje = this.pacman.getVakje();
+        ArrayList<Vakje> pacmanPath = new ArrayList<Vakje>();
+
         for (Iterator it = vakken.iterator(); it.hasNext();) {
 
             Vakje vakje = (Vakje) it.next();
 
-            if (this.pacman.getY() == vakje.getY() && !vakje.isMuur()) {
-                    
+            if (this.pacman.getY() == vakje.getY()) {
+                
                 if (tempVakje.getX() > vakje.getX()) {
-
-                    tempVakje = vakje;
+                  
+                  pacmanPath.add(vakje);
                 }
+
             }
         }
-
-        this.pacman.gaNaarVakje(tempVakje);
+        tempVakje.setPacman(this.pacman);
+        this.pacman.path(pacmanPath,Pacman.Direction.WEST);
     }
 
     public void gaNorth() {
-  
-        try{
-                    Vakje tempVakje = this.pacmanStartVakje;
+
+        try {
+            Vakje tempVakje = this.pacman.getVakje();
+            ArrayList<Vakje> pacmanPath = new ArrayList<Vakje>();
+            for (Iterator it = vakken.iterator(); it.hasNext();) {
+
+                Vakje vakje = (Vakje) it.next();
+
+                if (this.pacman.getX() == vakje.getX() ) {
+
+                    if (vakje.getY() < tempVakje.getY()) {
+
+                        pacmanPath.add(vakje);
+
+                    }
+
+                }
+            }
+
+            this.pacman.path(pacmanPath,Pacman.Direction.NORTH);
+
+        } catch (NullPointerException e) {
+
+        }
+
+    }
+
+    public void gaSouth() {
+
+        Vakje tempVakje = this.pacman.getVakje();
+        ArrayList<Vakje> pacmanPath = new ArrayList<Vakje>();
         for (Iterator it = vakken.iterator(); it.hasNext();) {
 
             Vakje vakje = (Vakje) it.next();
 
             if (this.pacman.getX() == vakje.getX() && vakje.isMuur() == false) {
-                
-                if (vakje.getY() < tempVakje.getY()) {
 
-                    tempVakje = vakje;
-
-                }
-
-            }
-        }
-
-        this.pacman.gaNaarVakje(tempVakje);
-            
-        }catch(NullPointerException e)
-        {
-            
-        }
-
-    }
-    
-        public void gaSouth() {
-  
-        Vakje tempVakje = null;
-        for (Iterator it = vakken.iterator(); it.hasNext();) {
-
-            Vakje vakje = (Vakje) it.next();
-
-            if (this.pacman.getX() == vakje.getX()  && vakje.isMuur() == false) {
-                
                 if (vakje.getY() > this.pacman.getY()) {
 
-                    tempVakje = vakje;
+                    pacmanPath.add(vakje);
 
                 }
 
             }
         }
 
-        this.pacman.gaNaarVakje(tempVakje);
+        this.pacman.path(pacmanPath,Pacman.Direction.SOUTH);
     }
 
 }
