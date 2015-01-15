@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +22,9 @@ public class Pacman {
     private final int height = 50;
     private final int SPEED = 5;
     private boolean running = true;
-
+    private int score=0;
+    private Font font;
+    
     public enum Direction {
 
         SOUTH, EAST, NORTH, WEST
@@ -29,6 +32,7 @@ public class Pacman {
     private Direction move;
     private int deltaTime;
     private Vakje goToVakje;
+    
 
     public void update(int deltaTime) {
         this.deltaTime = deltaTime;
@@ -86,6 +90,13 @@ public class Pacman {
         graphics.fillOval((width / 2) + x, y + 10, 10, 10);
         graphics.setColor(Color.BLACK);
         graphics.fillArc(x, y, width, height, width, height);
+        
+        Font myFont = new Font("Serif",font.BOLD,28);
+        graphics.setColor(Color.lightGray);
+        graphics.setFont(myFont);
+        graphics.drawString("Score:"+ score, 30,500);
+        
+        
     }
 
     void setY(int y) {
@@ -113,10 +124,13 @@ public class Pacman {
     }
    private void eetBolletje(Vakje vakje)
    { 
-//       if(vakje.getBolletje().getY() < this.getY() + this.getY() + this.getWidth() && vakje.getX() == this.getX())
+       
+       //       if(vakje.getBolletje().getY() < this.getY() + this.getY() + this.getWidth() && vakje.getX() == this.getX())
 //       {
        vakje.getBolletje().verwijderen();
        vakje.setBevat(null);
+       
+       score +=10;
 //       }
    }
 
