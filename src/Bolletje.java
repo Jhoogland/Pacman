@@ -13,11 +13,8 @@ import java.awt.Graphics;
  */
 public class Bolletje extends SpelElement {
 
-    private int x;
-    private int y;
-    private int height = 25;
-    private int width = 25;
-
+    
+   
     public void setWidth(int width) {
         this.width = width / 2;
     }
@@ -33,17 +30,9 @@ public class Bolletje extends SpelElement {
     public void setY(int y) {
         this.y = y + this.height /2;
     }
-    public int getY()
-    {
-        return this.y;
-    }
-    public int getX()
-    {
-        return this.x;
-        
-    }
+    
 
-    public void draw(Graphics g) {
+    public void tekenen(Graphics g) {
         g.setColor(Color.WHITE);
         g.fillOval(x, y, width, height);
     }

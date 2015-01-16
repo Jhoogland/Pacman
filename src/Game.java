@@ -19,6 +19,7 @@ public class Game implements Runnable {
     public Panel panel;
     public final int WIDTH = 800;
     public final int HEIGHT = 800;
+    static boolean Status = true;
     Canvas canvas;
     BufferStrategy bufferStrategy;
     public List<Spookje> spoken = new ArrayList<Spookje>();
@@ -34,7 +35,7 @@ public class Game implements Runnable {
         long lastUpdateTime;
         long deltaLoop;
 
-        while (Status.RUNNING.equals(Status.RUNNING)) {
+        while (Status) {
             beginLoopTime = System.nanoTime();
             render();
             lastUpdateTime = currentUpdateTime;
@@ -83,18 +84,13 @@ public class Game implements Runnable {
     protected void render(Graphics2D g) {
 
         speelveld.draw(g);
-        pacman.draw(g);
+        pacman.tekenen(g);
         for (Iterator it = spoken.iterator(); it.hasNext();) {
             Spookje spook = (Spookje) it.next();
-            spook.draw(g);
-            spook.start();
+            spook.tekenen(g);
+            spook.randomBewegen();
          }
 
-    }
-
-    public enum Status {
-
-        RUNNING, STOPPED, PAUSED
     }
 
     public void spelStarten() {

@@ -39,14 +39,14 @@ class Vakje {
             muur.setY(this.y);
             muur.setWidth(this.WIDTH);
             muur.setHeight(this.HEIGHT);
-            muur.draw(g);
+            muur.tekenen(g);
         }else if(this.isBolletje())
         {
             bolletje.setX(this.getX());
             bolletje.setY(this.getY());
             bolletje.setWidth(this.getWidth());
             bolletje.setHeight(this.getHeight());
-            bolletje.draw(g);
+            bolletje.tekenen(g);
         }
         
     }
@@ -75,7 +75,7 @@ class Vakje {
         return this.HEIGHT;
     }
 
-    public boolean pacmanIsErop() {
+    public boolean isPacman() {
         
     
           return (this.pacman instanceof Pacman);

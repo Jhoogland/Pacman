@@ -18,13 +18,13 @@ public class Spookje extends SpelElement {
 
     public Spookje() {
 
-        this.SPEED = 1;
+        this.SNELHEID = 1;
         this.width = 50;
         this.height = 50;
 
     }
 
-    public void draw(Graphics g) {
+    public void tekenen(Graphics g) {
         g.setColor(Color.MAGENTA);
         g.fillOval(x, y, width, height);
         g.setColor(Color.BLACK);
@@ -33,29 +33,29 @@ public class Spookje extends SpelElement {
     }
 
     public boolean isStop() {
-        return running;
+        return lopend;
     }
 
-    private Direction randomDirection() {
+    private Richting volgendeRichting() {
         Random rand = new Random();
         int random = rand.nextInt(5);
         if (random == 1) {
-            return Direction.WEST;
+            return Richting.WEST;
         } else if (random == 2) {
-            return Direction.SOUTH;
+            return Richting.SOUTH;
         } else if (random == 3) {
-            return Direction.NORTH;
+            return Richting.NORTH;
 
         } else if (random == 4) {
-            return Direction.EAST;
+            return Richting.EAST;
         } else {
-            return Direction.EAST;
+            return Richting.EAST;
         }
 
     }
-    Direction randomDirection;
+    Richting randomRichting;
 
-    public void start() {
+    public void randomBewegen() {
 
         if (first) {
             this.setX(this.vakje.getX());
@@ -64,9 +64,9 @@ public class Spookje extends SpelElement {
         }
 
         if (this.getX() == this.vakje.getX() && this.vakje.getY() == this.getY()) {
-            randomDirection = this.randomDirection();
-            running = true;
-             this.beweeg(randomDirection);
+            randomRichting = this.volgendeRichting();
+            lopend = true;
+             this.beweeg(randomRichting);
         }
         
        

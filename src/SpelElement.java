@@ -20,20 +20,18 @@ public abstract class SpelElement {
     protected int y;
     protected int width;
     protected int height;
-    protected int SPEED;
-    protected boolean running = true;
-    protected int stapjesGelopen =0;
-    protected final int maxStapjes = 5;
+    protected int SNELHEID;
+    protected boolean lopend = true;
     protected Vakje vakje;
     protected Speelveld speelveld;
     
-    abstract public void draw(Graphics g);
+    abstract public void tekenen(Graphics g);
     
     protected void gaNaarVakje(Vakje vakje) {
         
          if(this instanceof Bolletje == false )
         {
-        if (this instanceof Spookje && vakje.pacmanIsErop()) {
+        if (this instanceof Spookje && vakje.isPacman()) {
            
            vakje.pacman.dood();
         }
@@ -44,12 +42,12 @@ public abstract class SpelElement {
         }
     }
     
-    protected enum Direction {
+    protected enum Richting {
         
         SOUTH, EAST, WEST, NORTH
     }
     
-    private Direction direction;
+    private Richting richting;
     
     public void setSpeelVeld(Speelveld speelveld) {
         this.speelveld = speelveld;
@@ -75,26 +73,26 @@ public abstract class SpelElement {
     
     protected void goSouth() {
         if (this.y < this.vakje.getY()) {
-            y = y + this.SPEED;
+            y = y + this.SNELHEID;
         }
             
     }
     
     protected void goNorth() {
         if (this.y > this.vakje.getY()) {
-            y = y - this.SPEED;
+            y = y - this.SNELHEID;
         }
     }
     
     protected void goWest() {
         if (this.x > this.vakje.getX()) {
-            x = x - this.SPEED;
+            x = x - this.SNELHEID;
         }
     }
     
     protected void goEast() {
         if (this.x < this.vakje.getX()) {
-            x = x + this.SPEED;
+            x = x + this.SNELHEID;
         }
     }
     
@@ -104,16 +102,16 @@ public abstract class SpelElement {
     
     public void update() {
         
-        if (running) {
+        if (lopend) {
             try {
                 
-                if (direction == Direction.EAST) {
+                if (richting == Richting.EAST) {
                     this.goEast();
-                } else if (direction == Direction.WEST) {
+                } else if (richting == Richting.WEST) {
                     this.goWest();
-                } else if (direction == Direction.NORTH) {
+                } else if (richting == Richting.NORTH) {
                     this.goNorth();
-                } else if (direction == Direction.SOUTH) {
+                } else if (richting == Richting.SOUTH) {
                     this.goSouth();
                 }
                 
@@ -153,10 +151,10 @@ public abstract class SpelElement {
      *
      * @param direction
      */
-    public void beweeg(Direction direction) {
-        
-        ArrayList<Vakje> path = this.speelveld.getPath(this.getVakje(), direction, this);
-        this.path(path, direction);
+    public void beweeg(Richting richting) {
+        //verbeteren naar een betere implementatie
+        ArrayList<Vakje> path = this.speelveld.getPath(this.getVakje(), richting, this);
+        this.path(path, richting);
     }
 
     /**
@@ -165,10 +163,10 @@ public abstract class SpelElement {
      * @param path
      * @param direction
      */
-    private void path(ArrayList<Vakje> path, Direction direction) {
-        this.direction = direction;
+    private void path(ArrayList<Vakje> path, Richting direction) {
+        this.richting = direction;
         if (path.size() > 0) {
-            if (direction == Direction.WEST || direction == Direction.NORTH) {
+            if (direction == Richting.WEST || direction == Richting.NORTH) {
                 Collections.reverse(path);
             }
             /**

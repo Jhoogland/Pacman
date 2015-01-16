@@ -12,7 +12,6 @@ class Speelveld {
 
     private final int rowMax = 9;
     SpelElement pathfor;
-    int pathForXCenter, pathForYCenter;
     Vakje pacmanStartVakje = new Vakje(null);
 
     public void setPacman(Pacman pacman) {
@@ -242,7 +241,7 @@ class Speelveld {
      * @param pathfor
      * @return
      */
-    public ArrayList<Vakje> getPath(Vakje vakje, SpelElement.Direction direction, SpelElement pathfor) {
+    public ArrayList<Vakje> getPath(Vakje vakje, SpelElement.Richting direction, SpelElement pathfor) {
         this.pathfor = pathfor;
        
         ArrayList<Vakje> path = new ArrayList<Vakje>();

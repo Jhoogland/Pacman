@@ -11,56 +11,22 @@ public class Pacman extends SpelElement {
 
 
     private int score=0;
+    private int leven=3;
     private Font font;
+    boolean isLevend=true;
+    
     public Pacman() {
 
-        this.SPEED = 5;
+        this.SNELHEID = 5;
 
         this.width = 50;
         this.height = 50;
     }
-    
-    public enum Direction {
-
-
-        SOUTH, EAST, NORTH, WEST
-    };
-    private Direction move;
-    private int deltaTime;
     private Vakje goToVakje;
     
 
-    public void update(int deltaTime) {
-        this.deltaTime = deltaTime;
-        if (running) {
-            try {
-                if (this.getX() < this.goToVakje.getX() && this.getY() == this.goToVakje.getY()) {
-                    this.goEast();
-                } else if (this.getY() > this.goToVakje.getY() && this.getX() == this.goToVakje.getX()) {
-                    this.goNorth();
-                } else if (this.getX() > this.goToVakje.getX() && this.getY() == this.goToVakje.getY()) {
-                    this.goWest();
-                } else if (this.getY() < this.goToVakje.getY() && this.getX() == this.goToVakje.getX()) {
-                    this.goSouth();
-                } else {
-                    this.running = false;
-                }
-
-            } catch (NullPointerException e) {
-            }
-                    
-        }
-
-    }
-
-    
-
-    public void stop() {
-        this.running = false;
-    }
-
     @Override
-    public void draw(Graphics graphics) {
+    public void tekenen(Graphics graphics) {
         graphics.setColor(Color.YELLOW);
         graphics.fillOval(x, y, width, height);
         graphics.setColor(Color.BLACK);
@@ -71,7 +37,11 @@ public class Pacman extends SpelElement {
         Font myFont = new Font("Serif",font.BOLD,28);
         graphics.setColor(Color.lightGray);
         graphics.setFont(myFont);
-        graphics.drawString("Score:"+ score, 30,500);
+        graphics.drawString("Score: "+ score, 500,50);
+        
+        graphics.setColor(Color.lightGray);
+        graphics.setFont(myFont);
+        graphics.drawString("Levens: "+ leven,500,100);
         
         
     }
@@ -104,19 +74,25 @@ public class Pacman extends SpelElement {
         }else if(vakje.isSpookje())
         {
             this.dood();
-        }
-        
-        this.running = true;
+            
+        }System.out.println("new home");
+        System.out.println("-------------");
+        this.lopend = true;
         this.vakje = vakje;
         vakje.setPacman(this);
     }
 
     void dood() {
+        if(isLevend){
+            isLevend=false;
         this.x = 100000;
         this.y = -1000;
-        
+        leven = leven -1;
+            if(leven==0){
+                Game. Status=false;
+            }
         //PACMAN IS DOOD
     }
-    
+    }
 
 }
