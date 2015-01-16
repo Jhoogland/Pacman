@@ -15,14 +15,21 @@ class Vakje {
 
     private final int WIDTH = 50;
     private final int HEIGHT =50;
-    private int x, y;
-    private Object bevat;
-
-    public Vakje(Object spelelement) {
+    private int x= 0, y=0;
+    public SpelElement bevat;
+    private Bolletje bolletje;
+    public Pacman pacman;
+    
+    public Vakje(SpelElement spelelement) {
 
         this.bevat = spelelement;
-
+       
     }
+    public Vakje(Bolletje bolletje)
+    {
+        this.bolletje = bolletje;
+    }
+            
 
     public void draw(Graphics g) {
 
@@ -33,24 +40,13 @@ class Vakje {
             muur.setWidth(this.WIDTH);
             muur.setHeight(this.HEIGHT);
             muur.draw(g);
-        }else if(this.bevat instanceof Spookje)
+        }else if(this.isBolletje())
         {
-            Spookje spookje = (Spookje)this.bevat;
-            spookje.setX(this.getX());
-            spookje.setY(this.getY());
-            spookje.setWidth(this.getWidth());
-            spookje.setHeight(this.getHeight());
-            spookje.draw(g);
-        }else if(this.bevat instanceof Bolletje)
-        {
-           
-            Bolletje bolletje = (Bolletje)this.bevat;
             bolletje.setX(this.getX());
             bolletje.setY(this.getY());
             bolletje.setWidth(this.getWidth());
             bolletje.setHeight(this.getHeight());
             bolletje.draw(g);
-            this.bevat = bolletje;
         }
         
     }
@@ -82,14 +78,19 @@ class Vakje {
     public boolean pacmanIsErop() {
         
     
-          return (this.bevat instanceof Pacman);
+          return (this.pacman instanceof Pacman);
        
     }
     public void setPacman(Pacman pacman)
     {
-          
-      this.bevat = pacman;       
+          System.out.println("new home");
+      this.pacman = pacman;       
     }
+    public void setSpookje(Spookje spookje)
+    {
+        this.bevat = spookje;
+    }
+    
     
     public Boolean isSpookje()
     {
@@ -101,22 +102,23 @@ class Vakje {
     }
     public boolean isBolletje()
     {
-        return(this.bevat instanceof Bolletje);
+        return(this.bolletje instanceof Bolletje);
     }
 
     Bolletje getBolletje() {
         
-            return (Bolletje)this.bevat;
+            return this.bolletje;
         
         
     }
-    
-    public void verwijdren()
+ 
+    public void bolletjeVerwijderen()
     {
-        this.bevat = null;
+        this.bolletje = null;
     }
 
     void setBevat(Object object) {
-        this.bevat =  null;
+        this.bevat =  (SpelElement)null;
     }
+   
 }

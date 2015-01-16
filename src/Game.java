@@ -1,14 +1,14 @@
 
-
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-
 
 public class Game implements Runnable {
 
@@ -21,6 +21,7 @@ public class Game implements Runnable {
     public final int HEIGHT = 800;
     Canvas canvas;
     BufferStrategy bufferStrategy;
+    public List<Spookje> spoken = new ArrayList<Spookje>();
 
     long desiredFPS = 60;
     long desiredDeltaLoop = (1000 * 1000 * 1000) / desiredFPS;
@@ -42,7 +43,7 @@ public class Game implements Runnable {
             endLoopTime = System.nanoTime();
             deltaLoop = endLoopTime - beginLoopTime;
             if (deltaLoop > desiredDeltaLoop) {
-                
+
                 //Te laat
             } else {
                 try {
@@ -62,14 +63,18 @@ public class Game implements Runnable {
         bufferStrategy.show();
     }
 
-    //TESTING
-    private double x = 0;
+ 
 
     /**
      * Rewrite this method for your game
      */
     protected void update(int deltaTime) {
-        pacman.update(deltaTime);
+        pacman.update();
+        for (Iterator it = spoken.iterator(); it.hasNext();) {
+            Spookje spook = (Spookje) it.next();
+            spook.update();
+        }
+
     }
 
     /**
@@ -79,6 +84,12 @@ public class Game implements Runnable {
 
         speelveld.draw(g);
         pacman.draw(g);
+        for (Iterator it = spoken.iterator(); it.hasNext();) {
+            Spookje spook = (Spookje) it.next();
+            spook.draw(g);
+            spook.start();
+         }
+
     }
 
     public enum Status {
@@ -100,34 +111,35 @@ public class Game implements Runnable {
 
         speelveld = new Speelveld();
         pacman = new Pacman();
+        spoken.add(new Spookje());
+        spoken.add(new Spookje());
+        spoken.add(new Spookje());
+        spoken.add(new Spookje());
+        speelveld.setSpoken(spoken);
+        speelveld.laden();
         speelveld.setPacman(pacman);
-
         panel = new Panel();
         panel.setBackground(Color.BLACK);
         panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         panel.add(canvas);
-
         KeyHandler kh = new KeyHandler();
-        kh.setSpeelveld(speelveld);
+        kh.setPacman(pacman);
         canvas.addKeyListener(kh);
-
         frame = new JFrame();
         frame.setTitle(title);
         frame.setContentPane(panel);
         frame.setVisible(true);
         frame.setResizable(false);
         frame.pack();
-
         canvas.createBufferStrategy(2);
         bufferStrategy = canvas.getBufferStrategy();
-
         canvas.requestFocus();
     }
 
     public static void main(String[] args) {
 
         Game game = new Game();
-    game.spelStarten();
+        game.spelStarten();
 
     }
 
