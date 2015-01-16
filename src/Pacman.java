@@ -1,21 +1,17 @@
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author denzyl
  */
 public class Pacman extends SpelElement {
 
+
+    private int score=0;
+    private Font font;
     public Pacman() {
 
         this.SPEED = 5;
@@ -23,11 +19,47 @@ public class Pacman extends SpelElement {
         this.width = 50;
         this.height = 50;
     }
+    
+    public enum Direction {
+
+
+        SOUTH, EAST, NORTH, WEST
+    };
+    private Direction move;
+    private int deltaTime;
+    private Vakje goToVakje;
+    
+
+    public void update(int deltaTime) {
+        this.deltaTime = deltaTime;
+        if (running) {
+            try {
+                if (this.getX() < this.goToVakje.getX() && this.getY() == this.goToVakje.getY()) {
+                    this.goEast();
+                } else if (this.getY() > this.goToVakje.getY() && this.getX() == this.goToVakje.getX()) {
+                    this.goNorth();
+                } else if (this.getX() > this.goToVakje.getX() && this.getY() == this.goToVakje.getY()) {
+                    this.goWest();
+                } else if (this.getY() < this.goToVakje.getY() && this.getX() == this.goToVakje.getX()) {
+                    this.goSouth();
+                } else {
+                    this.running = false;
+                }
+
+            } catch (NullPointerException e) {
+            }
+                    
+        }
+
+    }
+
+    
 
     public void stop() {
         this.running = false;
     }
 
+    @Override
     public void draw(Graphics graphics) {
         graphics.setColor(Color.YELLOW);
         graphics.fillOval(x, y, width, height);
@@ -35,6 +67,13 @@ public class Pacman extends SpelElement {
         graphics.fillOval((width / 2) + x, y + 10, 10, 10);
         graphics.setColor(Color.BLACK);
         graphics.fillArc(x, y, width, height, width, height);
+        
+        Font myFont = new Font("Serif",font.BOLD,28);
+        graphics.setColor(Color.lightGray);
+        graphics.setFont(myFont);
+        graphics.drawString("Score:"+ score, 30,500);
+        
+        
     }
 
     private void eetBolletje(Vakje vakje) {
@@ -42,7 +81,10 @@ public class Pacman extends SpelElement {
         
         vakje.bolletjeVerwijderen();
 
+       score +=10;
+
     }
+    @Override
        public void startVakje(Vakje vakje) {
         this.vakje = vakje;
         
@@ -54,6 +96,8 @@ public class Pacman extends SpelElement {
         
     }
 
+
+    @Override
     protected void gaNaarVakje(Vakje vakje) {
         if (vakje.isBolletje()) {
             this.eetBolletje(vakje);

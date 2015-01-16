@@ -11,7 +11,8 @@ import java.util.Iterator;
  */
 /**
  *
- * @author Jhoog_000
+ *@author Denzyl
+ *
  */
 public abstract class SpelElement {
     
@@ -35,17 +36,11 @@ public abstract class SpelElement {
         if (this instanceof Spookje && vakje.pacmanIsErop()) {
            
            vakje.pacman.dood();
-        }else if(this instanceof Pacman && vakje.isSpookje())
-        {
-              vakje.pacman.dood();
         }
    
 
          this.vakje = vakje;
-    if(this instanceof Pacman)
-    {
-        vakje.setPacman((Pacman)this);
-    }
+  
         }
     }
     

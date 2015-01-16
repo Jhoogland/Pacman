@@ -83,9 +83,10 @@ class Vakje {
     }
     public void setPacman(Pacman pacman)
     {
-          System.out.println("new home");
+       
       this.pacman = pacman;       
     }
+    
     public void setSpookje(Spookje spookje)
     {
         this.bevat = spookje;
