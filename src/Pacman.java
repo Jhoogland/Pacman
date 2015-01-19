@@ -14,20 +14,26 @@ public class Pacman extends SpelElement {
     private int leven=3;
     private Font font;
     boolean isLevend=true;
-    
+    boolean isSuper = false;
     public Pacman() {
 
         this.SNELHEID = 5;
-
         this.width = 50;
         this.height = 50;
     }
-    private Vakje goToVakje;
+    
+    
+
     
 
     @Override
     public void tekenen(Graphics graphics) {
+        if(!isSuper)
+        {
         graphics.setColor(Color.YELLOW);
+        }else{
+          graphics.setColor(Color.GRAY); 
+        }
         graphics.fillOval(x, y, width, height);
         graphics.setColor(Color.BLACK);
         graphics.fillOval((width / 2) + x, y + 10, 10, 10);
@@ -45,8 +51,9 @@ public class Pacman extends SpelElement {
         
         
     }
+   
 
-    private void eetBolletje(Vakje vakje) {
+    private void eetBolletje() {
 
         
         vakje.bolletjeVerwijderen();
@@ -57,10 +64,7 @@ public class Pacman extends SpelElement {
     @Override
        public void startVakje(Vakje vakje) {
         this.vakje = vakje;
-        
-        
         this.vakje.setPacman(this);
-        
         this.setY(vakje.getY());
         this.setX(vakje.getX());
         
@@ -69,29 +73,32 @@ public class Pacman extends SpelElement {
 
     @Override
     protected void gaNaarVakje(Vakje vakje) {
-        if (vakje.isBolletje()) {
-            this.eetBolletje(vakje);
+         this.vakje = vakje;
+        if (vakje.isNormaalBolletje()) {
+            this.eetBolletje();
         }else if(vakje.isSpookje())
         {
             this.dood();
             
-        }System.out.println("new home");
-        System.out.println("-------------");
+        }else if(vakje.isSuperBolletje())
+        {
+            this.eetBolletje();
+            this.isSuper =  true;
+        }
         this.lopend = true;
-        this.vakje = vakje;
+       
         vakje.setPacman(this);
     }
 
     void dood() {
         if(isLevend){
             isLevend=false;
-        this.x = 100000;
-        this.y = -1000;
+        
         leven = leven -1;
             if(leven==0){
                 Game. Status=false;
             }
-        //PACMAN IS DOOD
+        
     }
     }
 

@@ -40,7 +40,7 @@ class Vakje {
             muur.setWidth(this.WIDTH);
             muur.setHeight(this.HEIGHT);
             muur.tekenen(g);
-        }else if(this.isBolletje())
+        }else if(this.isNormaalBolletje() || this.isSuperBolletje())
         {
             bolletje.setX(this.getX());
             bolletje.setY(this.getY());
@@ -101,9 +101,13 @@ class Vakje {
     {
         return (this.bevat instanceof Muur);
     }
-    public boolean isBolletje()
+    public boolean isNormaalBolletje()
     {
-        return(this.bolletje instanceof Bolletje);
+        return(this.bolletje instanceof NormaalBolletje);
+    }
+    public boolean isSuperBolletje()
+    {
+        return(this.bolletje instanceof SuperBolletje);
     }
 
     Bolletje getBolletje() {

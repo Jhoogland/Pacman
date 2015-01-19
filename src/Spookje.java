@@ -66,7 +66,7 @@ public class Spookje extends SpelElement {
         if (this.getX() == this.vakje.getX() && this.vakje.getY() == this.getY()) {
             randomRichting = this.volgendeRichting();
             lopend = true;
-             this.beweeg(randomRichting);
+          //   this.beweeg(randomRichting);
         }
         
        

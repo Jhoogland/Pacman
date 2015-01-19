@@ -29,23 +29,18 @@ public abstract class SpelElement {
     
     protected void gaNaarVakje(Vakje vakje) {
         
-         if(this instanceof Bolletje == false )
+         if(this instanceof NormaalBolletje == false && this instanceof SuperBolletje == false )
         {
         if (this instanceof Spookje && vakje.isPacman()) {
            
            vakje.pacman.dood();
         }
-   
 
          this.vakje = vakje;
   
         }
     }
-    
-    protected enum Richting {
-        
-        SOUTH, EAST, WEST, NORTH
-    }
+
     
     private Richting richting;
     
@@ -147,7 +142,7 @@ public abstract class SpelElement {
     }
 
     /**
-     * Geef sein dat spelelement moet gaan
+     * Geef sein dat spelelement moet gaan bewegen
      *
      * @param direction
      */

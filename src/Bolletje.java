@@ -31,10 +31,9 @@ public class Bolletje extends SpelElement {
         this.y = y + this.height /2;
     }
     
-
     public void tekenen(Graphics g) {
-        g.setColor(Color.WHITE);
-        g.fillOval(x, y, width, height);
+        
     }
+
 
 }

@@ -35,16 +35,16 @@ public class KeyHandler implements KeyListener {
         switch (ke.getKeyCode()) {
 
             case 40:// SOUTH
-             this.Pacman.beweeg(SpelElement.Richting.SOUTH);//Pacman. beweeg(South);
+             this.Pacman.beweeg(Richting.SOUTH);//Pacman. beweeg(South);
                 break;
             case 38://NORTH
-               this.Pacman.beweeg(SpelElement.Richting.NORTH);//
+               this.Pacman.beweeg(Richting.NORTH);//
                 break;
             case 39://EAST
-                this.Pacman.beweeg(SpelElement.Richting.EAST);
+                this.Pacman.beweeg(Richting.EAST);
                 break;
             case 37://WEST
-            this.Pacman.beweeg(SpelElement.Richting.WEST);
+            this.Pacman.beweeg(Richting.WEST);
                 break;
         }
     }

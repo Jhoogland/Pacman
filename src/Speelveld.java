@@ -55,13 +55,13 @@ class Speelveld {
         vakken.add(pacmanStartVakje);
         vakken.add(new Vakje(new Bolletje()));
         vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Bolletje()));
-        vakken.add(new Vakje(new Bolletje()));
-        vakken.add(new Vakje(new Bolletje()));
+        vakken.add(new Vakje(new NormaalBolletje()));
+        vakken.add(new Vakje(new NormaalBolletje()));
+        vakken.add(new Vakje(new NormaalBolletje()));
         vakken.add(new Vakje(new Muur()));
 
         vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Bolletje()));
+        vakken.add(new Vakje(new SuperBolletje()));
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
@@ -135,7 +135,7 @@ class Speelveld {
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
+        vakken.add(new Vakje(null));
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Muur()));
@@ -241,7 +241,7 @@ class Speelveld {
      * @param pathfor
      * @return
      */
-    public ArrayList<Vakje> getPath(Vakje vakje, SpelElement.Richting direction, SpelElement pathfor) {
+    public ArrayList<Vakje> getPath(Vakje vakje, Richting direction, SpelElement pathfor) {
         this.pathfor = pathfor;
        
         ArrayList<Vakje> path = new ArrayList<Vakje>();
