@@ -15,11 +15,16 @@ public class Pacman extends SpelElement {
     private Font font;
     boolean isLevend=true;
     boolean isSuper = false;
+    boolean timer=false;
+    boolean tijd=false;
+    private long begin;
+    private long nu;
     public Pacman() {
 
         this.SNELHEID = 5;
         this.width = 50;
         this.height = 50;
+        
     }
     
     
@@ -28,11 +33,14 @@ public class Pacman extends SpelElement {
 
     @Override
     public void tekenen(Graphics graphics) {
+         if(begin+10==System.currentTimeMillis()/1000){            
+                isSuper=false;
+            }
         if(!isSuper)
         {
         graphics.setColor(Color.YELLOW);
         }else{
-          graphics.setColor(Color.GRAY); 
+          graphics.setColor(Color.GRAY);      
         }
         graphics.fillOval(x, y, width, height);
         graphics.setColor(Color.BLACK);
@@ -49,6 +57,12 @@ public class Pacman extends SpelElement {
         graphics.setFont(myFont);
         graphics.drawString("Levens: "+ leven,500,100);
         
+        graphics.setColor(Color.BLUE);
+        graphics.setFont(myFont);
+        graphics.drawString("Tijd: " + 100000000+ "seconden",500,200);
+        
+        
+        
         
     }
    
@@ -57,8 +71,7 @@ public class Pacman extends SpelElement {
 
         
         vakje.bolletjeVerwijderen();
-
-       score +=10;
+        score +=10;
 
     }
     @Override
@@ -73,17 +86,24 @@ public class Pacman extends SpelElement {
 
     @Override
     protected void gaNaarVakje(Vakje vakje) {
+        
          this.vakje = vakje;
         if (vakje.isNormaalBolletje()) {
             this.eetBolletje();
+            
         }else if(vakje.isSpookje())
         {
             this.dood();
             
         }else if(vakje.isSuperBolletje())
         {
+            
+             begin = System.currentTimeMillis()/1000;
+          
             this.eetBolletje();
-            this.isSuper =  true;
+            isSuper=true;
+             
+           
         }
         this.lopend = true;
        
