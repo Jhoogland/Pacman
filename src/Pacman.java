@@ -20,7 +20,7 @@ public class Pacman extends SpelElement {
     private long begin;
     private long nu;
     private long spelTijd;
-    public int aantalGegetenBolletjes;
+    public int aantalGegetenBolletjes=36;
     
     public Pacman() {
 
@@ -97,7 +97,7 @@ public class Pacman extends SpelElement {
          this.vakje = vakje;
         if (vakje.isNormaalBolletje()) {
             this.eetBolletje();
-            aantalGegetenBolletjes = aantalGegetenBolletjes+1;
+            aantalGegetenBolletjes = aantalGegetenBolletjes-1;
            System.out.println(aantalGegetenBolletjes);
             
         }else if(vakje.isSpookje()&&!isSuper)
