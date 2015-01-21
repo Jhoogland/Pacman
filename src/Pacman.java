@@ -19,6 +19,9 @@ public class Pacman extends SpelElement {
     boolean tijd=false;
     private long begin;
     private long nu;
+    private long spelTijd;
+    public int aantalGegetenBolletjes;
+    
     public Pacman() {
 
         this.SNELHEID = 5;
@@ -33,6 +36,7 @@ public class Pacman extends SpelElement {
 
     @Override
     public void tekenen(Graphics graphics) {
+        
          if(begin+10==System.currentTimeMillis()/1000){            
                 isSuper=false;
             }
@@ -57,9 +61,11 @@ public class Pacman extends SpelElement {
         graphics.setFont(myFont);
         graphics.drawString("Levens: "+ leven,500,100);
         
-        graphics.setColor(Color.BLUE);
+        nu = System.currentTimeMillis()/1000;
+        
+        graphics.setColor(Color.lightGray);
         graphics.setFont(myFont);
-        graphics.drawString("Tijd: " + 100000000+ "seconden",500,200);
+        graphics.drawString("Tijd: " +(nu - spelTijd) + " seconden",500,150);
         
         
         
@@ -69,8 +75,9 @@ public class Pacman extends SpelElement {
 
     private void eetBolletje() {
 
-        
+        System.out.println(nu-spelTijd);
         vakje.bolletjeVerwijderen();
+        aantalGegetenBolletjes = aantalGegetenBolletjes+1;
         score +=10;
 
     }
@@ -80,7 +87,7 @@ public class Pacman extends SpelElement {
         this.vakje.setPacman(this);
         this.setY(vakje.getY());
         this.setX(vakje.getX());
-        
+        spelTijd = System.currentTimeMillis()/1000;
     }
 
 
@@ -91,15 +98,19 @@ public class Pacman extends SpelElement {
         if (vakje.isNormaalBolletje()) {
             this.eetBolletje();
             
-        }else if(vakje.isSpookje())
+        }else if(vakje.isSpookje()&&!isSuper)
         {
             this.dood();
             
-        }else if(vakje.isSuperBolletje())
+        }else if(vakje.isSpookje()&&isSuper){
+            vakje.setBevat(this);
+        }
+        
+        else if(vakje.isSuperBolletje())
         {
             
              begin = System.currentTimeMillis()/1000;
-          
+ 
             this.eetBolletje();
             isSuper=true;
              
