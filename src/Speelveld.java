@@ -1,14 +1,29 @@
 
 import java.awt.Graphics;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import jdk.nashorn.internal.parser.JSONParser;
+
 
 class Speelveld {
 
     private List vakken = new ArrayList<Vakje>();
     private List spoken = new ArrayList<Spookje>();
+    private int[] level_one = {
+        1,1,1,1,1,1,1,1,1,
+        1,4,0,0,0,0,0,0,1,
+        1,3,1,0,1,0,1,0,1,
+        1,0,0,0,0,0,0,0,1,
+        1,0,1,4,1,0,1,0,1,
+        1,0,1,0,1,0,1,0,1,
+        1,0,0,0,0,0,0,0,1,
+        1,0,1,4,1,0,1,0,1,
+        1,0,1,0,1,4,1,0,1,
+        1,1,1,1,1,1,1,1,1       
+    };
 
     private final int rowMax = 9;
     SpelElement pathfor;
@@ -36,164 +51,33 @@ class Speelveld {
 
     public void laden() {
         vakken = new ArrayList<Vakje>();
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        /**
-         * Set spookje
-         */
-        vakken.add(new Vakje(new Muur()));
-        Spookje spookvakje = (Spookje) spoken.get(0);
-        vakken.add(spookvakje.vakje);
-        vakken.add(pacmanStartVakje);
-        vakken.add(new Vakje(new Bolletje()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new NormaalBolletje()));
-        vakken.add(new Vakje(new NormaalBolletje()));
-        vakken.add(new Vakje(new NormaalBolletje()));
-        vakken.add(new Vakje(new Muur()));
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new SuperBolletje()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        spookvakje = (Spookje) spoken.get(2);
-        vakken.add(spookvakje.vakje);
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        spookvakje = (Spookje) spoken.get(1);
-        vakken.add(spookvakje.vakje);
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(pacmanStartVakje);
-
-        vakken.add(new Vakje(new Muur()));
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(null));
-        spookvakje = (Spookje) spoken.get(3);
-        vakken.add(spookvakje.vakje);
-        vakken.add(new Vakje(null));        
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(null));
-        vakken.add(new Vakje(new Muur()));
-
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(new Muur()));
-
+        int spokjes  = 0;
+        for(int i =  0; i < level_one.length; i++)
+        {
+         if(level_one[i] == 1)
+         {
+             vakken.add(new Vakje(new Muur()));
+         }else if(level_one[i]==0)
+         {
+             vakken.add(new Vakje(new NormaalBolletje()));
+         }else if(level_one[i] == 2)
+         {
+             vakken.add(new Vakje(new SuperBolletje()));
+         }else if(level_one[i]==3)
+         {
+             vakken.add(this.pacmanStartVakje);
+         }else if(level_one[i] == 4)
+         {
+             if(spokjes <= spoken.size())
+             {
+             Spookje spook  = (Spookje)spoken.get(spokjes);
+             vakken.add(spook.vakje);
+             spokjes++;
+             }
+         
+         }
+             
+        }
         this.vakjesVerdelen();
 
     }
