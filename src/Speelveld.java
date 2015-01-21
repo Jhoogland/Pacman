@@ -11,6 +11,8 @@ class Speelveld {
     private List spoken = new ArrayList<Spookje>();
 
     private final int rowMax = 9;
+    int aantalBolletjes=0;
+    public int aantalGegetenBolletjes;
     SpelElement pathfor;
     Vakje pacmanStartVakje = new Vakje(null);
 
@@ -63,7 +65,7 @@ class Speelveld {
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new SuperBolletje()));
         vakken.add(new Vakje(new Muur()));
-        vakken.add(new Vakje(null));
+        vakken.add(new Vakje(new NormaalBolletje()));
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Muur()));
@@ -193,9 +195,19 @@ class Speelveld {
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Muur()));
         vakken.add(new Vakje(new Muur()));
-
+        
+        for(int i=0; i<vakken.size(); i++){
+          Vakje vak = (Vakje)vakken.get(i);
+         
+          if(vak.isNormaalBolletje()){
+              aantalBolletjes=aantalBolletjes+1;
+              System.out.println(vak.isNormaalBolletje());
+          }
+            
+        }
+        
         this.vakjesVerdelen();
-
+        
     }
 
     private void vakjesVerdelen() {
@@ -217,12 +229,17 @@ class Speelveld {
 
         }
     }
+    private void setKers(){
+        // setKers
+    }
 
     /**
      * Alle vakjes tekenen op het speelveld
      * @param 
      */
     public void draw(Graphics g) {
+        
+        
         for (Iterator it = vakken.iterator(); it.hasNext();) {
 
             Vakje vakje = (Vakje) it.next();
