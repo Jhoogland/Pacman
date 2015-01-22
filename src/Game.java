@@ -113,7 +113,9 @@ public class Game implements Runnable {
         spoken.add(new Spookje());
         spoken.add(new Spookje());
         spoken.add(new Spookje());
-        speelveld.setSpoken(spoken);
+        
+        speelveld.spoken = spoken;
+      
         speelveld.laden();
         speelveld.setPacman(pacman);
         panel = new Panel();

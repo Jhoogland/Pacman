@@ -1,13 +1,13 @@
+
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
 class Speelveld {
 
     private List vakken = new ArrayList<Vakje>();
-    private List spoken = new ArrayList<Spookje>();
+    public List spoken = new ArrayList<Spookje>();
     private final int rowMax = 9;
     SpelElement pathfor;
     Vakje pacmanStartVakje = new Vakje(null);
@@ -15,47 +15,43 @@ class Speelveld {
     int timeplayed = 1;
     private int[] level;
     private int[] level_one = {
-        
-        1,1,1,1,1,1,1,1,1,
-        1,0,0,0,0,0,0,0,1,
-        1,3,1,1,1,1,1,0,1,
-        1,0,1,0,0,0,1,0,1,
-        1,0,1,0,1,0,1,0,1,
-        1,0,1,0,1,0,0,0,1,
-        1,0,0,2,0,0,1,4,1,
-        1,0,1,0,1,0,1,0,1,
-        1,0,0,0,0,0,0,0,1,
-        1,1,1,1,1,1,1,1,1   
+        1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 0, 0, 0, 0, 4, 0, 0, 1,
+        1, 3, 1, 1, 1, 1, 1, 0, 1,
+        1, 0, 1, 0, 0, 0, 1, 0, 1,
+        1, 4, 1, 0, 1, 0, 1, 0, 1,
+        1, 0, 1, 0, 1, 0, 0, 0, 1,
+        1, 0, 0, 2, 0, 0, 1, 4, 1,
+        1, 0, 1, 0, 1, 0, 1, 0, 1,
+        1, 0, 4, 0, 0, 0, 0, 0, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1
     };
-    
-    private int[] level_two = {
-        1,1,1,1,1,1,1,1,1,
-        1,0,0,0,0,0,0,0,1,
-        1,3,1,0,1,0,1,0,1,
-        1,0,0,0,0,0,0,0,1,
-        1,0,1,0,1,0,1,0,1,
-        1,0,1,0,1,0,1,0,1,
-        1,0,0,2,0,0,0,0,1,
-        1,0,1,0,1,0,1,0,1,
-        1,0,1,0,1,4,1,0,1,
-        1,1,1,1,1,1,1,1,1       
-    };
-    
-    private int[] level_three ={
-        1,1,1,1,1,1,1,1,1,
-        1,0,0,0,0,0,0,0,1,
-        1,0,1,0,1,0,1,0,1,
-        1,0,1,0,0,0,0,0,1,
-        1,0,1,0,1,0,1,0,1,
-        1,0,1,0,1,0,1,0,1,
-        1,0,0,3,0,2,0,0,1,
-        1,0,1,0,1,0,1,0,1,
-        1,0,1,0,1,4,1,0,1,
-        1,1,1,1,1,1,1,1,1  
-    };
-    
 
-  
+    private int[] level_two = {
+        1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 1,
+        1, 3, 1, 0, 1, 4, 1, 0, 1,
+        1, 0, 0, 4, 0, 0, 0, 0, 1,
+        1, 0, 1, 0, 1, 0, 1, 0, 1,
+        1, 0, 1, 0, 0, 0, 1, 0, 1,
+        1, 0, 0, 2, 0, 0, 0, 0, 1,
+        1, 0, 1, 0, 1, 0, 1, 0, 1,
+        1, 4, 1, 0, 0, 4, 1, 0, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1
+    };
+
+    private int[] level_three = {
+        1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 0, 0, 0, 0, 0, 0, 4, 1,
+        1, 0, 1, 0, 1, 0, 1, 0, 1,
+        1, 0, 1, 0, 4, 0, 0, 0, 1,
+        1, 4, 1, 0, 1, 0, 1, 0, 1,
+        1, 0, 1, 0, 1, 0, 1, 0, 1,
+        1, 0, 0, 3, 0, 2, 0, 0, 1,
+        1, 0, 1, 0, 1, 0, 1, 0, 1,
+        1, 0, 1, 0, 1, 4, 1, 0, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1
+    };
 
     public void setPacman(Pacman pacman) {
 
@@ -63,54 +59,51 @@ class Speelveld {
         pacman.startVakje(pacmanStartVakje);
 
     }
-    private void setLevel(int[] level)
-    {
+
+    private void setLevel(int[] level) {
         this.level = level;
     }
-    public Speelveld()
-    {
+
+    public Speelveld() {
         this.setLevel(this.level_one);
     }
 
-    public void setSpoken(List<Spookje> spoken) {
+    public void setSpoken() {
 
-        for (Spookje spook : spoken) {
-
+        for (Iterator it = spoken.iterator(); it.hasNext();) {
+            Spookje spook = (Spookje) it.next();
             spook.setSpeelVeld(this);
             Vakje vakje = new Vakje(null);
             vakje.setSpookje(spook);
             spook.startVakje(vakje);
         }
-        this.spoken = spoken;
 
     }
 
     public void laden() {
         vakken = new ArrayList<Vakje>();
-        int spokjes  = 0;
-        for(int i =  0; i < level.length; i++)
-        {
-         if(level[i] == 1)
-         {
-             vakken.add(new Vakje(new Muur()));
-         }else if(level[i]==0)
-         {  aantalBolletjes= aantalBolletjes + 1;
-             vakken.add(new Vakje(new NormaalBolletje()));
-         }else if(level[i] == 2)
-         {
-             vakken.add(new Vakje(new SuperBolletje()));
-         }else if(level[i]==3)
-         {
-             vakken.add(this.pacmanStartVakje);
-         }else if(level[i] == 4)
-         {
-             if(spokjes <= spoken.size())
-             {
-             Spookje spook  = (Spookje)spoken.get(spokjes);
-             vakken.add(spook.vakje);          
-             spokjes++;
-             }         
-         }             
+
+        this.setSpoken();
+        int spokjes = 0;
+        for (int i = 0; i < level.length; i++) {
+            if (level[i] == 1) {
+                vakken.add(new Vakje(new Muur()));
+            } else if (level[i] == 0) {
+                aantalBolletjes = aantalBolletjes + 1;
+                vakken.add(new Vakje(new NormaalBolletje()));
+            } else if (level[i] == 2) {
+                vakken.add(new Vakje(new SuperBolletje()));
+            } else if (level[i] == 3) {
+                vakken.add(this.pacmanStartVakje);
+            } else if (level[i] == 4) {
+
+                if (spokjes <= spoken.size()) {
+
+                    Spookje spook = (Spookje) spoken.get(spokjes);
+                    vakken.add(spook.vakje);
+                    spokjes++;
+                }
+            }
         }
         this.vakjesVerdelen();
     }
@@ -127,16 +120,24 @@ class Speelveld {
             vakje.setX(x);
             x = x + vakje.getWidth();
             i++;
+            
             if (i % this.rowMax == 0) {
                 y = y + vakje.getHeight();
                 x = 0;
             }
+            if(vakje.bevat instanceof Spookje)
+            {
+                vakje.bevat.setX(vakje.getX());
+                vakje.bevat.setY(vakje.getY());
+            }
         }
+     
     }
 
     /**
      * Alle vakjes tekenen op het speelveld
-     * @param 
+     *
+     * @param
      */
     public void draw(Graphics g) {
         for (Iterator it = vakken.iterator(); it.hasNext();) {
@@ -145,18 +146,6 @@ class Speelveld {
             vakje.draw(g);
 
         }
-    }
-
-    public void cleanVakjes()
-    {
-      for (Iterator it = vakken.iterator(); it.hasNext();) {
-
-            Vakje vakje = (Vakje) it.next();
-            vakje.bevat = null;
-            vakje.setSpookje(null);
-            vakje.setPacman(null);
-        }  
-      
     }
 
     /**
@@ -169,7 +158,7 @@ class Speelveld {
      */
     public ArrayList<Vakje> getPath(Vakje vakje, Richting direction, SpelElement pathfor) {
         this.pathfor = pathfor;
-       
+
         ArrayList<Vakje> path = new ArrayList<Vakje>();
         switch (direction) {
             case EAST:
@@ -211,7 +200,7 @@ class Speelveld {
 
     private ArrayList<Vakje> pathNaarWest(Vakje tempVakje) {
 
-      ArrayList<Vakje> path = new ArrayList<Vakje>();
+        ArrayList<Vakje> path = new ArrayList<Vakje>();
         for (Iterator it = vakken.iterator(); it.hasNext();) {
 
             Vakje vakje = (Vakje) it.next();
@@ -270,15 +259,19 @@ class Speelveld {
 
     public void volgendeLevel() {
         timeplayed++;
-       this.cleanVakjes();
-       if(timeplayed ==2)
-       {
-                      this.setLevel(this.level_two);
-       } if(timeplayed == 3)
-       {
-           this.setLevel(this.level_three);
-       }
-       this.laden();
+
+        if (timeplayed == 2) {
+            this.setLevel(this.level_two);
+        }
+        if (timeplayed == 3) {
+            this.setLevel(this.level_three);
+        }
+ if(timeplayed > 0)
+ {
+     Game.spelStoppen();
+ }
+        this.laden();
+
     }
 
 }

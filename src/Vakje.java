@@ -35,6 +35,12 @@ class Vakje {
     
 
     public void draw(Graphics g) {
+ 
+        if (this.bevat instanceof Spookje) {
+            g.setColor(Color.RED);
+            g.drawRect(x, y, WIDTH, WIDTH);
+            
+        }
        if (this.bevat instanceof Muur) {
             Muur muur = (Muur) this.bevat;
             muur.setX(this.x);
@@ -136,7 +142,7 @@ class Vakje {
     }
     public void kersVerwijderen()
     {
-        System.out.println("ja");
+      
         this.bevat=null;
         
     }

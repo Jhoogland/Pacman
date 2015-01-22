@@ -26,14 +26,14 @@ public abstract class SpelElement {
     protected Speelveld speelveld;
 
     abstract public void tekenen(Graphics g);
-    
+
     protected void gaNaarVakje(Vakje vakje) {
-           this.vakje.bevat = null;
+        this.vakje.bevat = null;
         if (this instanceof NormaalBolletje == false && this instanceof SuperBolletje == false) {
             if (this instanceof Spookje && vakje.isPacman()) {
 
                 vakje.pacman.dood();
-              
+
             }
 
             this.vakje = vakje;
@@ -45,7 +45,7 @@ public abstract class SpelElement {
 
     public void setSpeelVeld(Speelveld speelveld) {
         this.speelveld = speelveld;
-        
+
     }
 
     void setY(int y) {
@@ -67,7 +67,7 @@ public abstract class SpelElement {
 
     protected void goSouth() {
         if (this.y < this.vakje.getY()) {
-           
+
             y = y + this.SNELHEID;
         }
 
@@ -75,21 +75,21 @@ public abstract class SpelElement {
 
     protected void goNorth() {
         if (this.y > this.vakje.getY()) {
-          
+
             y = y - this.SNELHEID;
         }
     }
 
     protected void goWest() {
         if (this.x > this.vakje.getX()) {
-           ;
+            ;
             x = x - this.SNELHEID;
         }
     }
 
     protected void goEast() {
         if (this.x < this.vakje.getX()) {
-            
+
             x = x + this.SNELHEID;
         }
     }
@@ -128,6 +128,8 @@ public abstract class SpelElement {
     }
 
     public void startVakje(Vakje vakje) {
+        this.setY(vakje.getY());
+        this.setX(vakje.getX());
         this.vakje = vakje;
 
         if (this instanceof Pacman) {
@@ -136,8 +138,6 @@ public abstract class SpelElement {
         } else if (this instanceof Spookje) {
             this.vakje.setSpookje((Spookje) this);
         }
-        this.setY(vakje.getY());
-        this.setX(vakje.getX());
 
     }
 
@@ -147,10 +147,10 @@ public abstract class SpelElement {
      * @param direction
      */
     public void beweeg(Richting richting) {
-      
+
         ArrayList<Vakje> path = this.speelveld.getPath(this.getVakje(), richting, this);
         this.path(path, richting);
-      
+
     }
 
     /**
