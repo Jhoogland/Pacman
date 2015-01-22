@@ -1,7 +1,12 @@
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,11 +30,13 @@ public class Spookje extends SpelElement {
     }
 
     public void tekenen(Graphics g) {
-        g.setColor(Color.MAGENTA);
-        g.fillOval(x, y, width, height);
-        g.setColor(Color.BLACK);
-        g.fillOval(x + width / 4, y + 10, 10, 10);
-        g.fillOval(x + width / 2, y + 10, 10, 10);
+       
+        try {
+            g.drawImage(ImageIO.read(new File("spookje.gif")), x, y,width,height, null);
+        } catch (IOException ex) {
+            Logger.getLogger(Spookje.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }
 
     public boolean isStop() {

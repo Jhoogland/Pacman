@@ -21,7 +21,8 @@ public class Pacman extends SpelElement {
     private long nu;
     private long spelTijd;
     public int aantalGegetenBolletjes;
-    
+    private Vakje startVakje;
+    private boolean first = true;
     public Pacman() {
 
         this.SNELHEID = 5;
@@ -36,7 +37,8 @@ public class Pacman extends SpelElement {
 
     @Override
     public void tekenen(Graphics graphics) {
-        
+     if(this.isLevend)
+     {
          if(begin+10==System.currentTimeMillis()/1000){            
                 isSuper=false;
             }
@@ -46,11 +48,12 @@ public class Pacman extends SpelElement {
         }else{
           graphics.setColor(Color.GRAY);      
         }
-        graphics.fillOval(x, y, width, height);
-        graphics.setColor(Color.BLACK);
-        graphics.fillOval((width / 2) + x, y + 10, 10, 10);
-        graphics.setColor(Color.BLACK);
-        graphics.fillArc(x, y, width, height, width, height);
+        
+
+
+  graphics.fillArc(x,y,width,height,30,300);
+       
+     }
         
         Font myFont = new Font("Serif",font.BOLD,28);
         graphics.setColor(Color.lightGray);
@@ -75,7 +78,6 @@ public class Pacman extends SpelElement {
 
     private void eetBolletje() {
 
-        System.out.println(nu-spelTijd);
         vakje.bolletjeVerwijderen();
         aantalGegetenBolletjes = aantalGegetenBolletjes+1;
         score +=10;
@@ -83,6 +85,12 @@ public class Pacman extends SpelElement {
     }
     @Override
        public void startVakje(Vakje vakje) {
+        if(first)
+        {
+        this.startVakje = vakje;
+        first = false;
+ 
+        }
         this.vakje = vakje;
         this.vakje.setPacman(this);
         this.setY(vakje.getY());
@@ -93,8 +101,8 @@ public class Pacman extends SpelElement {
 
     @Override
     protected void gaNaarVakje(Vakje vakje) {
-        
-         this.vakje = vakje;
+        this.vakje.pacman = null;
+        this.vakje = vakje;
         if (vakje.isNormaalBolletje()) {
             this.eetBolletje();
             
@@ -120,14 +128,29 @@ public class Pacman extends SpelElement {
        
         vakje.setPacman(this);
     }
+    private void opniew()
+    {
+        this.vakje.pacman = null;
+       this.startVakje(this.startVakje);
+          this.vakje.setPacman(null);
+        this.isLevend = true;
+    }
 
     void dood() {
         if(isLevend){
-            isLevend=false;
+        
         
         leven = leven -1;
-            if(leven==0){
+      
+        
+       
+         isLevend = false;
+        
+            if(leven <0){
                 Game. Status=false;
+            }else
+            {
+        this.opniew();
             }
         
     }

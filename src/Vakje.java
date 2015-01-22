@@ -32,8 +32,7 @@ class Vakje {
             
 
     public void draw(Graphics g) {
-
-     if (this.bevat instanceof Muur) {
+       if (this.bevat instanceof Muur) {
             Muur muur = (Muur) this.bevat;
             muur.setX(this.x);
             muur.setY(this.y);
@@ -118,12 +117,12 @@ class Vakje {
     }
  
     public void bolletjeVerwijderen()
-    {
+    {this.pacman =null;
         this.bolletje = null;
     }
 
     void setBevat(Object object) {
-        this.bevat =  (SpelElement)null;
+        this.bevat =  (SpelElement)object;
     }
    
 }

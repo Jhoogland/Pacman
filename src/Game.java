@@ -67,7 +67,7 @@ public class Game implements Runnable {
  
 
     /**
-     * Rewrite this method for your game
+     * Elementen bewegen
      */
     protected void update(int deltaTime) {
         pacman.update();
@@ -79,7 +79,7 @@ public class Game implements Runnable {
     }
 
     /**
-     * Rewrite this method for your game
+     * Elementen tekenen
      */
     protected void render(Graphics2D g) {
 
@@ -131,7 +131,16 @@ public class Game implements Runnable {
         bufferStrategy = canvas.getBufferStrategy();
         canvas.requestFocus();
     }
-
+    private void opniewLaden(int level)
+    {
+        this.speelveld.laden();
+        Status = true;
+    }
+    public static void  spelStoppen()
+    {
+        Game.Status = false;
+      
+    }
     public static void main(String[] args) {
 
         Game game = new Game();
