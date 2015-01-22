@@ -11,7 +11,9 @@ class Speelveld {
       private final int rowMax = 9;
     SpelElement pathfor;
     Vakje pacmanStartVakje = new Vakje(null);
-     public int aantalGegetenBolletjes;
+
+     public int aantalBolletjes;
+     private boolean tekenKers;
     
     private int[] level_one = {
         1,1,1,1,1,1,1,1,1,
@@ -25,7 +27,7 @@ class Speelveld {
         1,4,1,0,1,4,1,0,1,
         1,1,1,1,1,1,1,1,1       
     };
-    boolean aantalBolletjes;
+    
 
   
 
@@ -35,7 +37,13 @@ class Speelveld {
         pacman.startVakje(pacmanStartVakje);
 
     }
-
+    public void update(){
+//        System.out.println(aantalBolletjes);
+     //   System.out.println(aantalBolletjes);
+     //   System.out.println(aantalGegetenBolletjes);
+       
+          
+    }
     public void setSpoken(List<Spookje> spoken) {
 
         for (Spookje spook : spoken) {
@@ -58,7 +66,7 @@ class Speelveld {
          {
              vakken.add(new Vakje(new Muur()));
          }else if(level_one[i]==0)
-         {
+         {  aantalBolletjes = aantalBolletjes + 1;
              vakken.add(new Vakje(new NormaalBolletje()));
          }else if(level_one[i] == 2)
          {

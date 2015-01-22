@@ -47,6 +47,13 @@ class Vakje {
             bolletje.setWidth(this.getWidth());
             bolletje.setHeight(this.getHeight());
             bolletje.tekenen(g);
+        }else if(this.bevat instanceof Kers){
+            Kers kers = (Kers) this.bevat;
+            kers.setX(this.x);
+            kers.setY(this.y);
+            kers.setWidth(this.WIDTH);
+            kers.setHeight(this.HEIGHT);
+            kers.tekenen(g);
         }
         
     }
@@ -125,6 +132,10 @@ class Vakje {
 
     void setBevat(Object object) {
         this.bevat =  (SpelElement)object;
+    }
+
+    void kers() {
+      this.bevat = new Kers();
     }
    
 }

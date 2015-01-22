@@ -106,9 +106,12 @@ public class Pacman extends SpelElement {
         this.vakje = vakje;
         if (vakje.isNormaalBolletje()) {
             this.eetBolletje();
-            aantalGegetenBolletjes = aantalGegetenBolletjes-1;
-           System.out.println(aantalGegetenBolletjes);
-            
+            aantalGegetenBolletjes = aantalGegetenBolletjes+1;
+          if(this.aantalGegetenBolletjes > (this.speelveld.aantalBolletjes/2))
+          {
+              System.out.println("Hello world");
+              this.startVakje.kers();
+          }
         }else if(vakje.isSpookje()&&!isSuper)
         {
             this.dood();
