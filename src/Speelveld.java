@@ -266,7 +266,7 @@ class Speelveld {
         if (timeplayed == 3) {
             this.setLevel(this.level_three);
         }
- if(timeplayed > 0)
+ if(timeplayed > 3)
  {
      Game.spelStoppen();
  }
