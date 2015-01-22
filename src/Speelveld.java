@@ -12,6 +12,7 @@ class Speelveld {
     SpelElement pathfor;
     Vakje pacmanStartVakje = new Vakje(null);
     public int aantalBolletjes;
+    int timeplayed = 1;
     private int[] level;
     private int[] level_one = {
         
@@ -19,11 +20,11 @@ class Speelveld {
         1,0,0,0,0,0,0,0,1,
         1,3,1,1,1,1,1,0,1,
         1,0,1,0,0,0,1,0,1,
-        1,0,1,4,1,0,1,0,1,
         1,0,1,0,1,0,1,0,1,
+        1,0,1,0,1,0,0,0,1,
         1,0,0,2,0,0,1,4,1,
-        1,0,1,0,1,1,1,0,1,
-        1,4,0,0,0,4,0,0,1,
+        1,0,1,0,1,0,1,0,1,
+        1,0,0,0,0,0,0,0,1,
         1,1,1,1,1,1,1,1,1   
     };
     
@@ -32,12 +33,25 @@ class Speelveld {
         1,0,0,0,0,0,0,0,1,
         1,3,1,0,1,0,1,0,1,
         1,0,0,0,0,0,0,0,1,
-        1,0,1,4,1,0,1,0,1,
+        1,0,1,0,1,0,1,0,1,
         1,0,1,0,1,0,1,0,1,
         1,0,0,2,0,0,0,0,1,
-        1,0,1,4,1,0,1,0,1,
-        1,4,1,0,1,4,1,0,1,
+        1,0,1,0,1,0,1,0,1,
+        1,0,1,0,1,4,1,0,1,
         1,1,1,1,1,1,1,1,1       
+    };
+    
+    private int[] level_three ={
+        1,1,1,1,1,1,1,1,1,
+        1,0,0,0,0,0,0,0,1,
+        1,0,1,0,1,0,1,0,1,
+        1,0,1,0,0,0,0,0,1,
+        1,0,1,0,1,0,1,0,1,
+        1,0,1,0,1,0,1,0,1,
+        1,0,0,3,0,2,0,0,1,
+        1,0,1,0,1,0,1,0,1,
+        1,0,1,0,1,4,1,0,1,
+        1,1,1,1,1,1,1,1,1  
     };
     
 
@@ -93,15 +107,12 @@ class Speelveld {
              if(spokjes <= spoken.size())
              {
              Spookje spook  = (Spookje)spoken.get(spokjes);
-             vakken.add(spook.vakje);
+             vakken.add(spook.vakje);          
              spokjes++;
-             }
-         
-         }
-             
+             }         
+         }             
         }
         this.vakjesVerdelen();
-
     }
 
     private void vakjesVerdelen() {
@@ -120,7 +131,6 @@ class Speelveld {
                 y = y + vakje.getHeight();
                 x = 0;
             }
-
         }
     }
 
@@ -137,7 +147,17 @@ class Speelveld {
         }
     }
 
- 
+    public void cleanVakjes()
+    {
+      for (Iterator it = vakken.iterator(); it.hasNext();) {
+
+            Vakje vakje = (Vakje) it.next();
+            vakje.bevat = null;
+            vakje.setSpookje(null);
+            vakje.setPacman(null);
+        }  
+      
+    }
 
     /**
      * Geeft alle vakjes aan spelElement die in die richting staan
@@ -245,12 +265,19 @@ class Speelveld {
 
             }
         }
-
         return path;
     }
 
-    void volgendeLevel() {
-       this.setLevel(this.level_two);
+    public void volgendeLevel() {
+        timeplayed++;
+       this.cleanVakjes();
+       if(timeplayed ==2)
+       {
+                      this.setLevel(this.level_two);
+       } if(timeplayed == 3)
+       {
+           this.setLevel(this.level_three);
+       }
        this.laden();
     }
 

@@ -22,11 +22,11 @@ public abstract class SpelElement {
     protected int height;
     protected int SNELHEID;
     protected boolean lopend = true;
-    protected Vakje vakje;
+    public Vakje vakje;
     protected Speelveld speelveld;
 
     abstract public void tekenen(Graphics g);
-
+    
     protected void gaNaarVakje(Vakje vakje) {
            this.vakje.bevat = null;
         if (this instanceof NormaalBolletje == false && this instanceof SuperBolletje == false) {

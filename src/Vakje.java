@@ -18,6 +18,7 @@ class Vakje {
     private int x= 0, y=0;
     public SpelElement bevat;
     private Bolletje bolletje;
+    private Kers kers;
     public Pacman pacman;
     public int bolletjes = 0;
     
@@ -30,7 +31,8 @@ class Vakje {
     {
         this.bolletje = bolletje;
     }
-            
+    
+    
 
     public void draw(Graphics g) {
        if (this.bevat instanceof Muur) {
@@ -48,11 +50,11 @@ class Vakje {
             bolletje.setHeight(this.getHeight());
             bolletje.tekenen(g);
         }else if(this.bevat instanceof Kers){
-            Kers kers = (Kers) this.bevat;
-            kers.setX(this.x);
-            kers.setY(this.y);
-            kers.setWidth(this.WIDTH);
-            kers.setHeight(this.HEIGHT);
+            Kers kers = (Kers)this.bevat;
+            kers.setX(this.getX());
+            kers.setY(this.getY());
+            kers.setWidth(this.getWidth());
+            kers.setHeight(this.getHeight());
             kers.tekenen(g);
         }
         
@@ -117,14 +119,27 @@ class Vakje {
     {
         return(this.bolletje instanceof SuperBolletje);
     }
-
+    public boolean isKers()
+    {   
+        return(this.bevat instanceof Kers);
+        
+    }
+    
+    Kers getKers(){
+        return this.kers;
+    }
     Bolletje getBolletje() {
         
             return this.bolletje;
         
         
     }
- 
+    public void kersVerwijderen()
+    {
+        System.out.println("ja");
+        this.bevat=null;
+        
+    }
     public void bolletjeVerwijderen()
     {this.pacman =null;
         this.bolletje = null;

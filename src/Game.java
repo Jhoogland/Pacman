@@ -90,13 +90,6 @@ public class Game implements Runnable {
             Spookje spook = (Spookje) it.next();
             spook.tekenen(g);
             spook.randomBewegen();
-            
-
-//            if(speelveld.aantalBolletjes/2<=pacman.aantalGegetenBolletjes){
-//          g.setColor(Color.RED);
-          g.fillOval(210, 410, 30, 30);
-           
-//      }
 
          }
 
@@ -140,22 +133,9 @@ public class Game implements Runnable {
         bufferStrategy = canvas.getBufferStrategy();
         canvas.requestFocus();
 
-        
+    }           
+//   
 
-        System.out.println(pacman.aantalGegetenBolletjes);
-        System.out.println(speelveld.aantalBolletjes);
-
-//        if(speelveld.aantalBolletjes/2==pacman.aantalGegetenBolletjes){
-//           // setKers();
-//           System.out.println("setKers");
-//      }
-        
-    }
-    private void opniewLaden(int level)
-    {
-        this.speelveld.laden();
-        Status = true;
-    }
     public static void  spelStoppen()
     {
         Game.Status = false;
