@@ -8,14 +8,26 @@ class Speelveld {
 
     private List vakken = new ArrayList<Vakje>();
     private List spoken = new ArrayList<Spookje>();
-      private final int rowMax = 9;
+    private final int rowMax = 9;
     SpelElement pathfor;
     Vakje pacmanStartVakje = new Vakje(null);
-
-     public int aantalBolletjes;
-     private boolean tekenKers;
-    
+    public int aantalBolletjes;
+    private int[] level;
     private int[] level_one = {
+        
+        1,1,1,1,1,1,1,1,1,
+        1,0,0,0,0,0,0,0,1,
+        1,3,1,1,1,1,1,0,1,
+        1,0,1,0,0,0,1,0,1,
+        1,0,1,4,1,0,1,0,1,
+        1,0,1,0,1,0,1,0,1,
+        1,0,0,2,0,0,1,4,1,
+        1,0,1,0,1,1,1,0,1,
+        1,4,0,0,1,4,0,0,1,
+        1,1,1,1,1,1,1,1,1   
+    };
+    
+    private int[] level_two = {
         1,1,1,1,1,1,1,1,1,
         1,0,0,0,0,0,0,0,1,
         1,3,1,0,1,0,1,0,1,
@@ -37,13 +49,15 @@ class Speelveld {
         pacman.startVakje(pacmanStartVakje);
 
     }
-    public void update(){
-//        System.out.println(aantalBolletjes);
-     //   System.out.println(aantalBolletjes);
-     //   System.out.println(aantalGegetenBolletjes);
-       
-          
+    private void setLevel(int[] level)
+    {
+        this.level = level;
     }
+    public Speelveld()
+    {
+        this.setLevel(this.level_two);
+    }
+
     public void setSpoken(List<Spookje> spoken) {
 
         for (Spookje spook : spoken) {
@@ -60,21 +74,21 @@ class Speelveld {
     public void laden() {
         vakken = new ArrayList<Vakje>();
         int spokjes  = 0;
-        for(int i =  0; i < level_one.length; i++)
+        for(int i =  0; i < level.length; i++)
         {
-         if(level_one[i] == 1)
+         if(level[i] == 1)
          {
              vakken.add(new Vakje(new Muur()));
-         }else if(level_one[i]==0)
-         {  aantalBolletjes = aantalBolletjes + 1;
+         }else if(level[i]==0)
+         {  aantalBolletjes= aantalBolletjes + 1;
              vakken.add(new Vakje(new NormaalBolletje()));
-         }else if(level_one[i] == 2)
+         }else if(level[i] == 2)
          {
              vakken.add(new Vakje(new SuperBolletje()));
-         }else if(level_one[i]==3)
+         }else if(level[i]==3)
          {
              vakken.add(this.pacmanStartVakje);
-         }else if(level_one[i] == 4)
+         }else if(level[i] == 4)
          {
              if(spokjes <= spoken.size())
              {
