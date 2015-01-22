@@ -45,6 +45,7 @@ public abstract class SpelElement {
 
     public void setSpeelVeld(Speelveld speelveld) {
         this.speelveld = speelveld;
+        
     }
 
     void setY(int y) {

@@ -19,6 +19,7 @@ class Vakje {
     public SpelElement bevat;
     private Bolletje bolletje;
     public Pacman pacman;
+    public int bolletjes = 0;
     
     public Vakje(SpelElement spelelement) {
 
@@ -101,7 +102,8 @@ class Vakje {
         return (this.bevat instanceof Muur);
     }
     public boolean isNormaalBolletje()
-    {
+    {   
+        
         return(this.bolletje instanceof NormaalBolletje);
     }
     public boolean isSuperBolletje()

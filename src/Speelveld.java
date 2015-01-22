@@ -1,17 +1,18 @@
-
 import java.awt.Graphics;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import jdk.nashorn.internal.parser.JSONParser;
 
 
 class Speelveld {
 
     private List vakken = new ArrayList<Vakje>();
     private List spoken = new ArrayList<Spookje>();
+      private final int rowMax = 9;
+    SpelElement pathfor;
+    Vakje pacmanStartVakje = new Vakje(null);
+     public int aantalGegetenBolletjes;
+    
     private int[] level_one = {
         1,1,1,1,1,1,1,1,1,
         1,0,0,0,0,0,0,0,1,
@@ -24,10 +25,9 @@ class Speelveld {
         1,4,1,0,1,4,1,0,1,
         1,1,1,1,1,1,1,1,1       
     };
+    boolean aantalBolletjes;
 
-    private final int rowMax = 9;
-    SpelElement pathfor;
-    Vakje pacmanStartVakje = new Vakje(null);
+  
 
     public void setPacman(Pacman pacman) {
 

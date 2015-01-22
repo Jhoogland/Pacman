@@ -20,6 +20,8 @@ public class Game implements Runnable {
     public final int WIDTH = 800;
     public final int HEIGHT = 800;
     static boolean Status = true;
+    public int aantalGegetenBolletjes;
+    public int aantalBolletjes;
     Canvas canvas;
     BufferStrategy bufferStrategy;
     public List<Spookje> spoken = new ArrayList<Spookje>();
@@ -89,6 +91,12 @@ public class Game implements Runnable {
             Spookje spook = (Spookje) it.next();
             spook.tekenen(g);
             spook.randomBewegen();
+            
+            if(speelveld.aantalBolletjes/2<=pacman.aantalGegetenBolletjes){
+          g.setColor(Color.RED);
+          g.fillOval(210, 410, 30, 30);
+           
+      }
          }
 
     }
@@ -130,6 +138,13 @@ public class Game implements Runnable {
         canvas.createBufferStrategy(2);
         bufferStrategy = canvas.getBufferStrategy();
         canvas.requestFocus();
+        System.out.println(pacman.aantalGegetenBolletjes);
+        System.out.println(speelveld.aantalBolletjes);
+        if(speelveld.aantalBolletjes/2==pacman.aantalGegetenBolletjes){
+           // setKers();
+           System.out.println("setKers");
+      }
+        
     }
     private void opniewLaden(int level)
     {
@@ -145,7 +160,7 @@ public class Game implements Runnable {
 
         Game game = new Game();
         game.spelStarten();
-
+        
     }
 
     class Panel extends JPanel {
