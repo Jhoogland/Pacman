@@ -26,7 +26,7 @@ public class Pacman extends SpelElement {
 
     public Pacman() {
 
-        this.SNELHEID = 5;
+        this.SNELHEID = 10;
         this.width = 50;
         this.height = 50;
         
