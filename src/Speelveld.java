@@ -23,7 +23,7 @@ class Speelveld {
         1,0,1,0,1,0,1,0,1,
         1,0,0,2,0,0,1,4,1,
         1,0,1,0,1,1,1,0,1,
-        1,4,0,0,1,4,0,0,1,
+        1,4,0,0,0,4,0,0,1,
         1,1,1,1,1,1,1,1,1   
     };
     
@@ -55,7 +55,7 @@ class Speelveld {
     }
     public Speelveld()
     {
-        this.setLevel(this.level_two);
+        this.setLevel(this.level_one);
     }
 
     public void setSpoken(List<Spookje> spoken) {
@@ -247,6 +247,11 @@ class Speelveld {
         }
 
         return path;
+    }
+
+    void volgendeLevel() {
+       this.setLevel(this.level_two);
+       this.laden();
     }
 
 }
