@@ -80,9 +80,12 @@ public class Pacman extends SpelElement {
     private void eetBolletje() {
 
         vakje.bolletjeVerwijderen();
-       
         score +=10;
 
+    }
+    private void eetKers(){
+        vakje.kersVerwijderen();
+        score +=100;
     }
     @Override
        public void startVakje(Vakje vakje) {
@@ -107,9 +110,8 @@ public class Pacman extends SpelElement {
         if (vakje.isNormaalBolletje()) {
             this.eetBolletje();
             aantalGegetenBolletjes = aantalGegetenBolletjes+1;
-          if(this.aantalGegetenBolletjes > (this.speelveld.aantalBolletjes/2))
+          if(this.aantalGegetenBolletjes == (this.speelveld.aantalBolletjes/2))
           {
-              System.out.println("Hello world");
               this.startVakje.kers();
           }
         }else if(vakje.isSpookje()&&!isSuper)
@@ -129,6 +131,10 @@ public class Pacman extends SpelElement {
             isSuper=true;
              
            
+        }
+        else if(vakje.isKers())
+        {
+         this.eetKers(); 
         }
         this.lopend = true;
        
