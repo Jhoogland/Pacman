@@ -17,8 +17,9 @@ class Vakje {
     private final int HEIGHT =50;
     private int x= 0, y=0;
     public SpelElement bevat;
-
     public int bolletjes = 0;
+    private boolean onthoudBolletje = false; 
+    public Object bolletjeHouder;
     
     public Vakje(SpelElement spelelement) {
 
@@ -30,10 +31,7 @@ class Vakje {
 
     public void draw(Graphics g) {
  
-        if (this.isSpookje()) {
-            g.setColor(Color.RED);
-            g.drawRect(x, y, WIDTH, WIDTH);            
-        }
+      
        if (this.isMuur()) {
             Muur muur = (Muur) this.bevat;
             muur.setX(this.x);
@@ -57,7 +55,15 @@ class Vakje {
             kers.setHeight(this.getHeight());
             kers.tekenen(g);
         }
-        
+       if(bolletjeHouder instanceof Bolletje)
+       {
+           this.bevat = (Bolletje)this.bolletjeHouder;
+          
+       }
+         if (this.isSpookje()) {
+            g.setColor(Color.RED);
+            g.drawRect(x, y, WIDTH, WIDTH);            
+        }
     }
 
     void setY(int y) {
@@ -91,19 +97,34 @@ class Vakje {
        
     }
     public void setPacman(Pacman pacman)
-    {
-       
-      this.bevat = pacman;       
+    {System.out.println("====");
+        System.out.println(this.isSpookje());
+       if(this.isSpookje() && this.bevat.intersect(pacman))
+       {
+        
+       }else
+       {
+      this.bevat = pacman;  
+       }
     }
     
     public void setSpookje(Spookje spookje)
     {
+       
+        if(this.isNormaalBolletje() || this.isSuperBolletje())
+        {
+            this.bolletjeHouder = this.bevat;
+            
+                                  
+        }
         this.bevat = spookje;
+     
     }
     
     
     public Boolean isSpookje()
     {
+        
         return (this.bevat instanceof Spookje);
     }
     public boolean isMuur()
@@ -141,15 +162,13 @@ class Vakje {
     }
     public void bolletjeVerwijderen()
     {this.bevat =null;
-        this.bevat = null;
+      this.bolletjeHouder =  null;
     }
 
-    void setBevat(Object object) {
-        this.bevat =  (SpelElement)object;
-    }
 
     void kers() {
       this.bevat = new Kers();
     }
+
    
 }

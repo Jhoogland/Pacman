@@ -25,20 +25,26 @@ public abstract class SpelElement {
     public Vakje vakje;
     protected Vakje startVakje;
     protected Speelveld speelveld;
+
     abstract public void tekenen(Graphics g);
 
     protected void gaNaarVakje(Vakje vakje) {
-        this.vakje.bevat = null;
-        if (this instanceof NormaalBolletje == false && this instanceof SuperBolletje == false) {
-            if (this instanceof Spookje && vakje.isPacman()) {
-
-                   Pacman pacman = (Pacman)vakje.bevat;
-                   pacman.dood();
+    this.vakje.bevat = null;
+       
+            if (this instanceof Spookje && vakje.isPacman() &&this.intersect(vakje.bevat)) {
+                System.out.println("Overleden");
+                Pacman pacman = (Pacman)vakje.bevat;
+                pacman.dood();
             }
-
+    
+      
             this.vakje = vakje;
 
-        }
+            Spookje spookje  = (Spookje)this;
+            this.vakje.setSpookje(spookje);
+           
+
+        
     }
 
     private Richting richting;
@@ -73,6 +79,18 @@ public abstract class SpelElement {
 
     }
 
+    public boolean intersect(SpelElement spelelement) {
+        int spelelementXMiddle = spelelement.x + (spelelement.vakje.getWidth() / 2);
+        int spelelementYMiddle = spelelement.y + (spelelement.vakje.getHeight() / 2);
+
+        if ((this.x < spelelementXMiddle && this.x + this.vakje.getWidth() > spelelementXMiddle)
+                || (this.y < spelelementYMiddle && this.y + this.vakje.getHeight() > spelelementYMiddle)) {
+            return true;
+        }
+
+        return false;
+    }
+
     protected void goNorth() {
         if (this.y > this.vakje.getY()) {
 
@@ -82,9 +100,10 @@ public abstract class SpelElement {
 
     protected void goWest() {
         if (this.x > this.vakje.getX()) {
-            ;
+            
             x = x - this.SNELHEID;
         }
+        
     }
 
     protected void goEast() {
@@ -92,6 +111,7 @@ public abstract class SpelElement {
 
             x = x + this.SNELHEID;
         }
+       
     }
 
     public Vakje getVakje() {

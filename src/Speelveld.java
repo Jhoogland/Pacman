@@ -15,12 +15,12 @@ class Speelveld {
     private int[] level;
     private int[] level_one = {
         1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 0, 0, 0, 0, 4, 0, 0, 1,
+        1, 0, 0, 0, 0, 0, 0, 0, 1,
         1, 3, 1, 1, 1, 1, 1, 0, 1,
         1, 0, 1, 0, 0, 0, 1, 0, 1,
-        1, 4, 1, 0, 1, 0, 1, 0, 1,
+        1, 0, 1, 0, 1, 0, 1, 0, 1,
         1, 0, 1, 0, 1, 0, 0, 0, 1,
-        1, 0, 0, 2, 0, 0, 1, 4, 1,
+        1, 0, 0, 2, 0, 0, 1, 0, 1,
         1, 0, 1, 0, 1, 0, 1, 0, 1,
         1, 0, 4, 0, 0, 0, 0, 0, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1
@@ -95,7 +95,7 @@ class Speelveld {
             } else if (level[i] == 3) {
                 vakken.add(this.pacmanStartVakje);
             } else if (level[i] == 4) {
-
+              
                 if (spokjes <= spoken.size()) {
 
                     Spookje spook = (Spookje) spoken.get(spokjes);

@@ -99,19 +99,19 @@ public class Pacman extends SpelElement {
     @Override
     protected void gaNaarVakje(Vakje vakje) {
 
-        this.vakje.bevat = null;
+      ///  this.vakje.bevat = null;
+             
         this.vakje = vakje;
+        
         if (vakje.isNormaalBolletje()) {
             this.eetBolletje();
+            
 
-        } else if (vakje.isSpookje() && !isSuper) {
+        } else if (vakje.isSpookje() && !isSuper && this.intersect(vakje.bevat)) {
 
-           
-        }else if(vakje.isSpookje()&&!isSuper)
-        {
-            this.dood();
-        } else if (vakje.isSpookje() && isSuper) {
-            vakje.setBevat(this);
+            
+           this.dood();
+          
         } else if (vakje.isSuperBolletje()) {
 
             begin = System.currentTimeMillis() / 1000;
@@ -123,6 +123,7 @@ public class Pacman extends SpelElement {
          this.eetKers(); 
         }
         this.lopend = true;
+        
         vakje.setPacman(this);
     }
 
