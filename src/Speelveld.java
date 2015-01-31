@@ -9,7 +9,6 @@ class Speelveld {
     private List vakken = new ArrayList<Vakje>();
     public List spoken = new ArrayList<Spookje>();
     private final int rowMax = 9;
-    SpelElement pathfor;
     Vakje pacmanStartVakje = new Vakje(null);
     public int aantalBolletjes;
     int timeplayed = 1;
@@ -156,9 +155,7 @@ class Speelveld {
      * @param pathfor
      * @return
      */
-    public ArrayList<Vakje> getPath(Vakje vakje, Richting direction, SpelElement pathfor) {
-        this.pathfor = pathfor;
-
+    public ArrayList<Vakje> getPath(Vakje vakje, Richting direction) {
         ArrayList<Vakje> path = new ArrayList<Vakje>();
         switch (direction) {
             case EAST:
@@ -187,7 +184,7 @@ class Speelveld {
 
             Vakje vakje = (Vakje) it.next();
 
-            if (this.pathfor.getY() == vakje.getY()) {
+            if (tempVakje.getY() == vakje.getY()) {
 
                 if (tempVakje.getX() < vakje.getX()) {
                     path.add(vakje);
@@ -205,7 +202,7 @@ class Speelveld {
 
             Vakje vakje = (Vakje) it.next();
 
-            if (this.pathfor.getY() == vakje.getY()) {
+            if (tempVakje.getY() == vakje.getY()) {
 
                 if (tempVakje.getX() > vakje.getX()) {
                     path.add(vakje);
@@ -244,7 +241,7 @@ class Speelveld {
 
             Vakje vakje = (Vakje) it.next();
 
-            if (this.pathfor.getX() == vakje.getX()) {
+            if (tempVakje.getX() == vakje.getX()) {
 
                 if (vakje.getY() > tempVakje.getY()) {
 

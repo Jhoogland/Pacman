@@ -19,8 +19,7 @@ public class Pacman extends SpelElement {
     private long begin;
     private long nu;
     private long spelTijd;
-    public int aantalGegetenBolletjes;
-    private Vakje startVakje;
+    public int aantalGegetenBolletjes;   
     private boolean first = true;
 
     public Pacman() {
@@ -100,7 +99,7 @@ public class Pacman extends SpelElement {
     @Override
     protected void gaNaarVakje(Vakje vakje) {
 
-        this.vakje.pacman = null;
+        this.vakje.bevat = null;
         this.vakje = vakje;
         if (vakje.isNormaalBolletje()) {
             this.eetBolletje();
@@ -128,7 +127,7 @@ public class Pacman extends SpelElement {
     }
 
     private void opniew() {
-        this.vakje.pacman = null;
+        this.vakje.bevat = null;
         this.startVakje(this.startVakje);
         this.vakje.setPacman(null);
         this.isLevend = true;

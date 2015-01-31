@@ -23,8 +23,8 @@ public abstract class SpelElement {
     protected int SNELHEID;
     protected boolean lopend = true;
     public Vakje vakje;
+    protected Vakje startVakje;
     protected Speelveld speelveld;
-
     abstract public void tekenen(Graphics g);
 
     protected void gaNaarVakje(Vakje vakje) {
@@ -32,8 +32,8 @@ public abstract class SpelElement {
         if (this instanceof NormaalBolletje == false && this instanceof SuperBolletje == false) {
             if (this instanceof Spookje && vakje.isPacman()) {
 
-                vakje.pacman.dood();
-
+                   Pacman pacman = (Pacman)vakje.bevat;
+                   pacman.dood();
             }
 
             this.vakje = vakje;
@@ -148,7 +148,7 @@ public abstract class SpelElement {
      */
     public void beweeg(Richting richting) {
 
-        ArrayList<Vakje> path = this.speelveld.getPath(this.getVakje(), richting, this);
+        ArrayList<Vakje> path = this.speelveld.getPath(this.getVakje(), richting);
         this.path(path, richting);
 
     }

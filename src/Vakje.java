@@ -17,9 +17,7 @@ class Vakje {
     private final int HEIGHT =50;
     private int x= 0, y=0;
     public SpelElement bevat;
-    private Bolletje bolletje;
-    private Kers kers;
-    public Pacman pacman;
+
     public int bolletjes = 0;
     
     public Vakje(SpelElement spelelement) {
@@ -27,21 +25,16 @@ class Vakje {
         this.bevat = spelelement;
        
     }
-    public Vakje(Bolletje bolletje)
-    {
-        this.bolletje = bolletje;
-    }
-    
+ 
     
 
     public void draw(Graphics g) {
  
-        if (this.bevat instanceof Spookje) {
+        if (this.isSpookje()) {
             g.setColor(Color.RED);
-            g.drawRect(x, y, WIDTH, WIDTH);
-            
+            g.drawRect(x, y, WIDTH, WIDTH);            
         }
-       if (this.bevat instanceof Muur) {
+       if (this.isMuur()) {
             Muur muur = (Muur) this.bevat;
             muur.setX(this.x);
             muur.setY(this.y);
@@ -50,12 +43,13 @@ class Vakje {
             muur.tekenen(g);
         }else if(this.isNormaalBolletje() || this.isSuperBolletje())
         {
+            Bolletje bolletje = (Bolletje)this.bevat;
             bolletje.setX(this.getX());
             bolletje.setY(this.getY());
             bolletje.setWidth(this.getWidth());
             bolletje.setHeight(this.getHeight());
             bolletje.tekenen(g);
-        }else if(this.bevat instanceof Kers){
+        }else if(this.isKers()){
             Kers kers = (Kers)this.bevat;
             kers.setX(this.getX());
             kers.setY(this.getY());
@@ -93,13 +87,13 @@ class Vakje {
     public boolean isPacman() {
         
     
-          return (this.pacman instanceof Pacman);
+          return (this.bevat instanceof Pacman);
        
     }
     public void setPacman(Pacman pacman)
     {
        
-      this.pacman = pacman;       
+      this.bevat = pacman;       
     }
     
     public void setSpookje(Spookje spookje)
@@ -119,11 +113,11 @@ class Vakje {
     public boolean isNormaalBolletje()
     {   
         
-        return(this.bolletje instanceof NormaalBolletje);
+        return(this.bevat instanceof NormaalBolletje);
     }
     public boolean isSuperBolletje()
     {
-        return(this.bolletje instanceof SuperBolletje);
+        return(this.bevat instanceof SuperBolletje);
     }
     public boolean isKers()
     {   
@@ -132,13 +126,12 @@ class Vakje {
     }
     
     Kers getKers(){
-        return this.kers;
+        return(Kers) this.bevat;
     }
     Bolletje getBolletje() {
         
-            return this.bolletje;
-        
-        
+            return (Bolletje)this.bevat;   
+     
     }
     public void kersVerwijderen()
     {
@@ -147,8 +140,8 @@ class Vakje {
         
     }
     public void bolletjeVerwijderen()
-    {this.pacman =null;
-        this.bolletje = null;
+    {this.bevat =null;
+        this.bevat = null;
     }
 
     void setBevat(Object object) {
