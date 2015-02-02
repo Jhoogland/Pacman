@@ -1,4 +1,5 @@
 
+import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,6 +16,7 @@ public class Game implements Runnable {
     private JFrame frame = new JFrame();
     private final String title = "PACMAN";
     public Speelveld speelveld;
+    public Menu menu;
     public Pacman pacman;
     public Panel panel;
     public final int WIDTH = 800;
@@ -106,8 +108,9 @@ public class Game implements Runnable {
         canvas = new Canvas();
         canvas.setBounds(0, 0, WIDTH, HEIGHT);
         canvas.setIgnoreRepaint(true);
-
         speelveld = new Speelveld();
+        menu = new Menu(this);
+        
         pacman = new Pacman();
         spoken.add(new Spookje());
         spoken.add(new Spookje());
@@ -115,13 +118,15 @@ public class Game implements Runnable {
         spoken.add(new Spookje());
         
         speelveld.spoken = spoken;
-      
+        
         speelveld.laden();
         speelveld.setPacman(pacman);
         panel = new Panel();
+        panel.setLayout(new BorderLayout());
         panel.setBackground(Color.BLACK);
         panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        panel.add(canvas);
+        panel.add(canvas, BorderLayout.CENTER);
+        panel.add(menu, BorderLayout.NORTH);
         KeyHandler kh = new KeyHandler();
         kh.setPacman(pacman);
         canvas.addKeyListener(kh);

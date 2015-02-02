@@ -17,19 +17,28 @@ import javax.swing.*;
 public class Menu extends JPanel {
     Game game;
     StartKnop startknop;
+    PauzeKnop pauzeknop;
     public Menu(Game game){
         JPanel menu = new JPanel();
         this.game = game;
         this.setPreferredSize(new Dimension(200,50));
-        this.setBackground(Color.yellow);
+        this.setBackground(Color.black);
         startknop = new StartKnop(this);
-        this.add(startknop);
+        pauzeknop = new PauzeKnop(this);
         
+        this.add(startknop);
+        this.add(pauzeknop);
         
        
     }
     public void startIsGedrukt(){
         game.spelStarten();
     }
-    
+    public void pauzeIsGedrukt(){
+        Game.Status = false;
+    }
+    public void hervatIsGedrukt(){
+        Game.Status = true;
+        System.out.println(Game.Status);
+    }
 }
