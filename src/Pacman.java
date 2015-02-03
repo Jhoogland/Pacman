@@ -9,7 +9,7 @@ import java.awt.Graphics;
  */
 public class Pacman extends SpelElement {
 
-    private int score = 0;
+    protected int score = 0;
     private int leven = 3;
     private Font font;
     boolean isLevend = true;
@@ -61,6 +61,9 @@ public class Pacman extends SpelElement {
         graphics.setFont(myFont);
         graphics.drawString("Tijd: " + (nu - spelTijd) + " seconden", 500, 150);
 
+    }
+    protected void verhoogScore(int aantal){
+        score +=aantal;
     }
 
     private void eetBolletje() {
