@@ -34,7 +34,19 @@ public abstract class SpelElement {
             if (this instanceof Spookje && vakje.isPacman() &&this.intersect(vakje.bevat)) {
                 System.out.println("Overleden");
                 Pacman pacman = (Pacman)vakje.bevat;
+                if(!pacman.isSuper){
                 pacman.dood();
+                }
+                else if(pacman.isSuper){
+                    
+//                    
+//                    Spookje spookje = (Spookje)vakje.bevat;
+//                    spookje.gaDood();
+         
+                    System.out.println("ja");
+                    pacman.verhoogScore(200);
+                    }
+                
             }
     
       
