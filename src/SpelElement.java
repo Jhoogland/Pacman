@@ -33,17 +33,22 @@ public abstract class SpelElement {
        
             if (this instanceof Spookje && vakje.isPacman() &&this.intersect(vakje.bevat)) {
                 System.out.println("Overleden");
+                
                 Pacman pacman = (Pacman)vakje.bevat;
                 if(!pacman.isSuper){
                 pacman.dood();
                 }
                 else if(pacman.isSuper){
-                    
-//                    
-//                    Spookje spookje = (Spookje)vakje.bevat;
-//                    spookje.gaDood();
-         
                     System.out.println("ja");
+                    
+                  int x = vakje.bevat.getX();
+                  int y = vakje.bevat.getY();
+            //      if(this instanceof Spookje && this.getX()== x && this.getY() == y){
+                  
+                  Vakje vakje1 = new Vakje(null);
+                  this.startVakje(vakje1);
+                  this.setX(1);
+              //    }
                     pacman.verhoogScore(200);
                     }
                 
